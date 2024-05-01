@@ -3,6 +3,7 @@
 #include <string>
 #include "Note.hpp"
 
+// ENUMS, basically mean constants, instead of writing numbers, we use these
 enum FolderType { PUBLIC, PRIVATE };
 
 class Folder {
@@ -11,8 +12,8 @@ class Folder {
 
 public:
     Folder(FolderType type);
+    // TODO: Remove these, these are redundant
     void addNote(Note* note);
-    void deleteNote(const std::string& noteHeading);
     void display() const;
     ~Folder();
 

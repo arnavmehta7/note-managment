@@ -1,3 +1,4 @@
+// TODO: ReTHink if we need it or not, we can probably move all the pretty formatting functions from main.py to here
 #include "UserInterface.hpp"
 #include <iostream>
 

@@ -10,21 +10,59 @@
 using namespace std;
 
 int main() {
-    // Load notes from the notes directory
     std::vector<Note*> public_notes, private_notes;
     loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PUBLIC), public_notes);
     loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PRIVATE), private_notes);
 
-    // printing the notes
-    for (const auto& note : private_notes) {
-        note->display();
-    }
+    // TODO: Write a small summary of the tool and what it does, alots of COUT
+    char choice;
+    do {
+        cout << "Choose an option:\n";
+        cout << "1. Search notes\n";
+        cout << "2. List notes\n";
+        cout << "3. Delete a PRIVATE note\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice (1-4): ";
+        // TODO: Add a functionality to create a new Note, very easy you just need to do like PrivateNote("heading", "content")
+        cin >> choice;
 
-    searchNotes(private_notes, "Reminder for school");
-    
-    // Delete a note
-    // cout << "\nDeleting note 'Economics 101'..." << endl;
-    // deleteNote(private_notes, "Economics 101", FolderType::PRIVATE);
+        switch (choice) {
+            case '1': {
+                string query;
+                cout << "Enter search query: ";
+                cin.ignore(); // To consume the newline character left by cin
+                getline(cin, query);
+                // TODO: Change the searchNotes function to print the notes nicely in formatted form
+                searchNotes(private_notes, query);
+                break;
+            }
+            case '2': {
+                cout << "Listing notes sorted by time of creation:\n";
+                // TODO: Create function to sort notes by creation time -- use GPT
+                // sortNotesByCreationTime(private_notes);
+                for (const auto& note : private_notes) note->display();
 
+                // TODO: Also list public notes, after sorting
+                break;
+            }
+            case '3': {
+                string heading;
+                cout << "Enter the heading of the private note to delete: ";
+                cin.ignore(); // To consume the newline character left by cin
+                getline(cin, heading);
+                // TODO: Consider if user should rather put in index of note to delete
+                deleteNote(private_notes, heading, FolderType::PRIVATE);
+                break;
+            }
+            case '4':
+                cout << "Exiting application.\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+        }
+    } while (choice != '4');
+
+    for (auto& note : public_notes) delete note;
+    for (auto& note : private_notes)delete note;
     return 0;
 }
