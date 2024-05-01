@@ -19,10 +19,12 @@ int main() {
     for (const auto& note : private_notes) {
         note->display();
     }
+
+    searchNotes(private_notes, "Reminder for school");
     
     // Delete a note
-    cout << "\nDeleting note 'Economics 101'..." << endl;
-    deleteNote(private_notes, "Economics 101", FolderType::PRIVATE);
+    // cout << "\nDeleting note 'Economics 101'..." << endl;
+    // deleteNote(private_notes, "Economics 101", FolderType::PRIVATE);
 
     return 0;
 }

@@ -5,6 +5,12 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <iostream>
+#include <unordered_map>
+
 #include "PublicNote.hpp"
 #include "PrivateNote.hpp"
 #include "Folder.hpp"
@@ -81,3 +87,54 @@ void deleteNote(vector<Note*>& notes, const std::string& heading, FolderType f) 
     deleteNoteFile(heading, f);
 }
 
+
+std::vector<std::string> tokenize(const std::string& text) {
+    std::istringstream iss(text);
+    std::vector<std::string> tokens;
+    std::string token;
+    while (iss >> token) {
+        // Simple normalization: convert to lowercase
+        std::transform(token.begin(), token.end(), token.begin(),
+                       [](unsigned char c){ return std::tolower(c); });
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
+int countOccurrences(const std::vector<std::string>& tokens, const std::string& content) {
+    int count = 0;
+    auto contentTokens = tokenize(content);
+    std::unordered_map<std::string, int> wordFrequency;
+
+    for (const auto& token : contentTokens) {
+        wordFrequency[token]++;
+    }
+
+    for (const auto& queryToken : tokens) {
+        count += wordFrequency[queryToken];
+    }
+
+    return count;
+}
+
+void searchNotes(const std::vector<Note*>& notes, const std::string& query) {
+    std::vector<std::string> queryTokens = tokenize(query);
+    std::vector<std::pair<Note*, int>> relevanceScores;
+
+    // len of elements in notes
+    cout << "Length of notes: " << notes.size() << endl;
+
+    for (Note* note : notes) {
+        int contentOccurrences = countOccurrences(queryTokens, note->getContent());
+        relevanceScores.push_back({note, contentOccurrences});
+    }
+
+    std::sort(relevanceScores.begin(), relevanceScores.end(), [](const auto& a, const auto& b) {
+        return a.second > b.second; // Sort in descending order of occurrences
+    });
+
+    // Display sorted results
+    for (const auto& entry : relevanceScores) {
+        std::cout << "Note: " << entry.first->getHeading() << " - Relevance: " << entry.second << std::endl;
+    }
+}

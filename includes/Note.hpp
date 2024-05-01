@@ -22,4 +22,8 @@ public:
         return heading;
     };
 
+    std::string getContent() const {
+        return content;
+    };
+
 };
