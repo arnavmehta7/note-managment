@@ -5,7 +5,9 @@
 
 using namespace std;
 PrivateNote::PrivateNote(const string& heading, const string& content)
-    : Note (heading, content) {save();}
+    : Note (heading, content) {
+        // save();
+    }
 
 void PrivateNote::edit(const string& newContent) {
     content = newContent;

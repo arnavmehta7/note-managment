@@ -8,7 +8,9 @@
 using namespace std;
 
 PublicNote::PublicNote(const string& heading, const string& content)
-    : Note (heading, content) {save();}
+    : Note (heading, content) {
+        // save();
+    }
 
 void PublicNote::edit(const string& newContent) {
     content = newContent;

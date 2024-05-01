@@ -16,6 +16,7 @@
 #include "Folder.hpp"
 using namespace std;
 
+// TRICKY: This function is a factory function that parses a note file and creates a note object
 Note* createNoteFromFilename(const std::string& filepath) {
     std::ifstream file(filepath);
     if (!file.is_open()) return nullptr;
