@@ -2,6 +2,8 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <string>
 // #include "PublicNote.hpp"
 #include "includes/PublicNote.hpp"
 #include "includes/PrivateNote.hpp"
@@ -11,19 +13,30 @@
 using namespace std;
 
 int main() {
-    std::vector<Note*> public_notes, private_notes;
+
+    // two vectors- public and private (dynamic arrays) are declared 
+    // it stores the pointer to the Note object of Note class 
+
+    vector<Note*> public_notes, private_notes;
+
+    // they are calls to the function with two arguments 
+    // 1. the path to the directory where the notes are stored  (string concatenation)
+    // 2. reference to the vector where loaded notes should be stored 
+    // there is a Folder class that provides getFolderName static method
+    // it takes a FolderType enum value - public or private and returns the folder name as string
+
     loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PUBLIC), public_notes);
     loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PRIVATE), private_notes);
 
-    // TODO: Write a small summary of the tool and what it does, alots of COUT
     char choice;
     do {
-        cout << "Choose an option:\n";
+        cout << "Welcome to ASE - an Academic Search Engine - to ace your academia " << endl;
+        cout << "This tool allows you to perform the following operations!" << endl;
         cout << "1. Search notes\n";
         cout << "2. List notes\n";
         cout << "3. Delete a PRIVATE note\n";
         cout << "4. Exit\n";
-        cout << "Enter your choice (1-4): ";
+        cout << "Enter your preferred choice (1-4): " << endl;
         // TODO: Add a functionality to create a new Note, very easy you just need to do like PrivateNote("heading", "content")
         cin >> choice;
 
