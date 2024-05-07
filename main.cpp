@@ -40,8 +40,10 @@ int main() {
                 cout << "Listing notes sorted by time of creation:\n";
                 // TODO: Create function to sort notes by creation time -- use GPT
                 // sortNotesByCreationTime(private_notes);
+                cout << "Public Notes" << endl;
+                for (const auto& note : public_notes) note ->display();
+                cout << "Private Notes" << endl;
                 for (const auto& note : private_notes) note->display();
-
                 // TODO: Also list public notes, after sorting
                 break;
             }
