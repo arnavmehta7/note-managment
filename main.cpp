@@ -49,35 +49,30 @@ int main() {
                 // TODO: Also list public notes, after sorting
                 break;
             }
-	    case '3': {
-            string heading, content;
-                    cout << "Enter the HEADING of the new note:\n";
-                    cin.ignore(); // To consume the newline character left by cin
-                    getline(cin, heading);
-            //cin >> heading;
-            content = heading;
-            //cout << "Enter the Content:\n";
-            //cin >> content;
-            
-            Note* note = new PrivateNote(heading, content);
-            note->save();
-            private_notes.push_back(note);
-                    
-            break;
-        }
-	    case '4': {
+            case '3': {
+                string heading, content;
+                cout << "Enter the HEADING of the new note:\n";
+                cin.ignore(); // To consume the newline character left by cin
+                getline(cin, heading);
+                content = heading;
+                
+                Note* note = new PrivateNote(heading, content);
+                note->save();
+                private_notes.push_back(note);
+                        
+                break;
+            }
+            case '4': {
                 string heading;
                 cout << "Enter the heading private note to modify: ";
                 cin.ignore(); // To consume the newline character left by cin
                 getline(cin, heading);
-		        for (auto& note : private_notes) {
+                for (auto& note : private_notes) {
                     if (note->getHeading() == heading) {
                         dynamic_cast<PrivateNote*>(note)->edit(heading);
                         break;
                     }
                 }
-                //edit(file);
-                // TODO link the code to txt file to directly open the txt folder.
                 break;
             }
             case '5': {
@@ -85,15 +80,14 @@ int main() {
                 cout << "Enter the heading of the private note to delete: ";
                 cin.ignore(); // To consume the newline character left by cin
                 getline(cin, heading);
-                // TODO: Consider if user should rather put in index of note to delete
                 deleteNote(private_notes, heading, FolderType::PRIVATE);
                 break;
             }
-            case '6':
+            case '6':{
                 cout << "Exiting application.\n";
                 break;
-            default:
-                cout << "Invalid choice. Please enter a number between 1 and 5.\n";
+            }
+            default: cout << "Invalid choice. Please enter a number between 1 and 5.\n";
         }
     } while (choice != '6');
 
