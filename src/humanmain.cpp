@@ -28,6 +28,10 @@ int main() {
     loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PUBLIC), public_notes);
     loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PRIVATE), private_notes);
 
+    // choice stores the user input
+    // do while loop- code inside the loop will be executed atleast once and then repeatedly until the condition in while keywoard 
+    // is no longer true
+
     char choice;
     do {
         cout << "Welcome to ASE - an Academic Search Engine - to ace your academia " << endl;
@@ -37,16 +41,26 @@ int main() {
         cout << "3. Delete a PRIVATE note\n";
         cout << "4. Exit\n";
         cout << "Enter your preferred choice (1-4): " << endl;
-        // TODO: Add a functionality to create a new Note, very easy you just need to do like PrivateNote("heading", "content")
         cin >> choice;
+
+        // the user input is stored in choice
+        // switch statement- executes different code blocks according to values of choice variable
+
+        // cin.ignore() - to ignore or discard characters in the input stream - \n 
+        // <iostream> header (STL lib)
+        // cin reads input from buffer until it encounters white space char , user does the \n command to subit their input
+        // it remains as buffer so when you will use cin again, it will interpret the \n as input causing unexpected behaviour
+
+        // getline takes input (cin) and puts it in query, also no input buffer of \n so we don't have to use cin.ignore() after
+        // <string> header
+        // 
 
         switch (choice) {
             case '1': {
                 string query;
                 cout << "Enter search query: ";
-                cin.ignore(); // To consume the newline character left by cin
+                cin.ignore();  
                 getline(cin, query);
-                // TODO: Change the searchNotes function to print the notes nicely in formatted form
                 searchNotes(private_notes, query);
                 break;
             }
