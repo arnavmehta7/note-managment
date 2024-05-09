@@ -160,12 +160,8 @@ Metadata extractMetadata(const std::string& filePath) {
 
     // Read each line of the file
     while (std::getline(file, line)) {
-        // Example: Extract author from a line starting with "Author:"
-        if (line.find("Author:") == 0) {
-            metadata.author = line.substr(8); // Assuming author's name starts from index 8
-        }
         // Example: Extract creation date from a line starting with "Date:"
-        else if (line.find("Date:") == 0) {
+        if (line.find("Date:") == 0) {
             metadata.creationDate = line.substr(6); // Assuming date starts from index 6
         }
         // Example: Extract keywords from a line starting with "Keywords:"
