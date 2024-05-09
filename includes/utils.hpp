@@ -18,22 +18,29 @@ using namespace std;
 // ENUMS, basically mean constants, instead of writing numbers, we use these
 enum FolderType { PUBLIC, PRIVATE };
 
-std::string getFolderName(FolderType type) {
+
+struct NoteHeadingAndType {
+    string heading;
+    FolderType type;
+    unordered_map<string, int> wordFrequencies;
+};
+
+string getFolderName(FolderType type) {
     return type == PUBLIC ? "public" : "private";
 }
 
 // TRICKY: This function is a factory function that parses a note file and creates a note object
-Note* createNoteFromFilename(const std::string& filepath) {
-    std::ifstream file(filepath);
+Note* createNoteFromFilename(const string& filepath) {
+    ifstream file(filepath);
     if (!file.is_open()) return nullptr;
 
-    std::string heading, lastModified, contentLine, content;
-    std::getline(file, heading); // Reads the heading line
-    std::getline(file, lastModified); // Reads the last modified line
-    std::getline(file, contentLine); // Skips the "Content:" line
+    string heading, lastModified, contentLine, content;
+    getline(file, heading); // Reads the heading line
+    getline(file, lastModified); // Reads the last modified line
+    getline(file, contentLine); // Skips the "Content:" line
 
     // Concatenate the rest of the file as the content
-    while (std::getline(file, contentLine)) content += contentLine + "\n";
+    while (getline(file, contentLine)) content += contentLine + "\n";
 
     // Remove the potential trailing newline
     if (!content.empty()) content.pop_back();
@@ -42,50 +49,32 @@ Note* createNoteFromFilename(const std::string& filepath) {
     heading = heading.substr(heading.find(":") + 2); // assumes "Heading: " is at the start
     
     Note* note;
-    if (filepath.find("/public/") != std::string::npos) // npos means not found
+    if (filepath.find("/public/") != string::npos) // npos means not found
         note = new PublicNote(heading, content);
-    else if (filepath.find("/private/") != std::string::npos) // npos means not found
+    else if (filepath.find("/private/") != string::npos) // npos means not found
         note = new PrivateNote(heading, content);
     else return nullptr; // Unknown note type
 
     return note;
 }
 
-void loadNotesFromDirectory(const std::string& directory, std::vector<Note*>& notes) {
-    for (const auto& entry : std::filesystem::directory_iterator(directory)) {
-        Note* note = createNoteFromFilename(entry.path());
-        if (note != nullptr) notes.push_back(note);
+Note* loadNoteFromHeadingInDirectory(const string& directory, const string& heading) {
+    for (const auto& entry : filesystem::directory_iterator(directory)) {
+        string filename = entry.path().filename();
+        if (filename == heading + ".txt") return createNoteFromFilename(entry.path());
     }
+    return nullptr;
 }
 
-void deleteNoteFromMemory(vector<Note*>& notes, const std::string& heading) {
-    auto it = std::find_if(notes.begin(), notes.end(), [&](const Note* note) {
-        string noteHeading = note->getHeading();
-        cout << "Comparing: " << noteHeading << " with " << heading << endl;
-        return noteHeading == heading;
-    });
-
-    // If the note is found, delete it from memory
-    if (it != notes.end()) {
-        delete *it;
-        notes.erase(it);
-    }
-}
-
-void deleteNoteFile(const std::string& heading, FolderType f) {
-    std::string path = "notes/" + getFolderName(f) + "/";
+void deleteNoteFile(const string& heading, FolderType f) {
+    string path = "notes/" + getFolderName(f) + "/";
     path += heading + ".txt";
     cout << "Deleting file: " << path << endl;
-    if (!std::filesystem::exists(path)) {
+    if (!filesystem::exists(path)) {
         cout << "File does not exist." << endl;
         return;
     }
-    std::filesystem::remove(path);
-}
-
-void deleteNote(vector<Note*>& notes, const std::string& heading, FolderType f) {
-    deleteNoteFromMemory(notes, heading);
-    deleteNoteFile(heading, f);
+    filesystem::remove(path);
 }
 
 // tokenize function - takes a string of text as input , splits it into individual tokens (words) using isstringstream, 
@@ -115,17 +104,15 @@ void deleteNote(vector<Note*>& notes, const std::string& heading, FolderType f) 
 // then we add the lowercase token to the tokens vector
 // return tokens - returns the vector of lowercases 
 
-void text_to_lower(string &s) {        
-    for(char &c : s) c = tolower(c);
-}
+void text_to_lower(string &s) {for(char &c : s) c = tolower(c);}
 
-std::vector<std::string> tokenize(std::string text) {
-    std::vector<std::string> tokens;
-    std::string token;
+vector<string> tokenize(string text) {
+    vector<string> tokens;
+    string token;
     text_to_lower(text);
     for (char c : text) {
         // If the character is not a space, add it to the current token
-        if (c != ' ') token += c;
+        if (c != ' ' && c !='\n' && c != '\t' && c !='\r') token += c;
         else {
             // If a space is encountered, add the current token to the tokens vector
             if (!token.empty()) {
@@ -149,19 +136,13 @@ std::vector<std::string> tokenize(std::string text) {
 // returns count - total occurences of token from tokens vector in content string
 
 
-int countOccurrences(const vector<string>& tokens, const string& content) {
+int countOccurrences(const vector<string>& tokens, const unordered_map<string, int>& wordFrequencies) {
     int count = 0;
-    auto contentTokens = tokenize(content);
-    unordered_map<string, int> wordFrequency;
-
-    for (const auto& token : contentTokens) {
-        wordFrequency[token]++;
-    }
-
     for (const auto& queryToken : tokens) {
-        count += wordFrequency[queryToken];
+        if (wordFrequencies.find(queryToken) != wordFrequencies.end())
+            count += wordFrequencies.at(queryToken);
     }
-
+    cout << "Count: " << count << endl;
     return count;
 }
 
@@ -181,14 +162,15 @@ int countOccurrences(const vector<string>& tokens, const string& content) {
 // for loop that iterates over entry pair - sorted pair - in relevanceScores vector
 // couts the heading and count
 
-void searchNotes(const vector<Note*>& notes, const string& query) {
+// void searchNotes(const vector<Note*>& notes, const string& query) {
+void searchNotes(const vector<NoteHeadingAndType*>& notes_available, const string& query) {
     vector<string> queryTokens = tokenize(query);
-    vector<pair<Note*, int>> relevanceScores;
+    vector<pair<NoteHeadingAndType*, int>> relevanceScores;
 
-    cout << "Length of notes: " << notes.size() << endl;
+    cout << "Length of notes: " << notes_available.size() << endl;
 
-    for (Note* note : notes) {
-        int contentOccurrences = countOccurrences(queryTokens, note->getContent());
+    for (NoteHeadingAndType* note : notes_available) {
+        int contentOccurrences = countOccurrences(queryTokens, note->wordFrequencies);
         relevanceScores.push_back({note, contentOccurrences});
     }
 
@@ -198,5 +180,5 @@ void searchNotes(const vector<Note*>& notes, const string& query) {
 
     
     for (const auto& entry : relevanceScores)
-        cout << "Note: " << entry.first->getHeading() << " - Relevance: " << entry.second << endl;
+        cout << "Note: " << entry.first->heading << " - Relevance: " << entry.second << endl;
 }

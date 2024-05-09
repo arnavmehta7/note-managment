@@ -1,0 +1,30 @@
+{
+  "private/C++.txt": {
+    "c++": 1,
+    "library": 1,
+    "standard": 1
+  },
+  "private/Personal Reminder.txt": {
+    "good": 1,
+    "life": 1,
+    "live": 1,
+    "reminder": 1
+  },
+  "private/life.txt": {
+    "life": 1
+  },
+  "private/wtf.txt": {
+    "hi": 1,
+    "htis": 1,
+    "is": 1,
+    "what": 1,
+    "wtf": 1
+  },
+  "public/Personal Reminder.txt": {
+    "good": 1,
+    "life": 1,
+    "live": 1,
+    "reminder": 1
+  },
+  "public/hello, 123.txt": {}
+}

@@ -1,10 +1,10 @@
 #pragma once
 #include "Note.hpp"
-
+using namespace std;
 class PrivateNote : public Note {
 public:
-    PrivateNote(const std::string& heading, const std::string& content);
-    void edit(const std::string& heading) override;
+    PrivateNote(const string& heading, const string& content);
+    void edit(const string& heading) override;
     void display() const override;
     void save() const override;
 };

@@ -6,29 +6,77 @@
 #include "PrivateNote.hpp"
 #include "utils.hpp"
 #include "Note.hpp"
+#include "json.hpp"
 
+using json = nlohmann::json;
 using namespace std;
 
+void generateMetadata(const vector<Note*>& notes) {
+    // Load existing metadata
+    ifstream inFile("metadata.json");
+    json metadata;
+    if (inFile.is_open()) {
+        inFile >> metadata;
+        inFile.close();
+    }
+
+    // Update metadata with new notes
+    for (Note* note : notes) {
+        string content = note->getContent();
+        vector<string> tokens = tokenize(content);
+        unordered_map<string, int> wordFrequency;
+        string key;
+
+        for (const auto& token : tokens) wordFrequency[token]++;
+        if (dynamic_cast<PublicNote*>(note)) 
+            key = getFolderName(FolderType::PUBLIC) + "/" + note->getHeading() + ".txt";
+        else
+            key = getFolderName(FolderType::PRIVATE) + "/" + note->getHeading() + ".txt";
+
+        if (metadata.find(key) == metadata.end()) { // Only add new notes
+            metadata[key] = wordFrequency;
+        }
+    }
+
+    // Write updated metadata back to file
+    ofstream outFile("metadata.json");
+    outFile << metadata.dump(2); // 4 spaces for indentation
+    outFile.close();
+}
+
+
+vector<NoteHeadingAndType*> loadMetadata() {
+    ifstream file("metadata.json");
+    json metadata;
+    file >> metadata;
+
+    vector<NoteHeadingAndType*> notes_available;
+    for (auto& [key, value] : metadata.items()) {
+        string heading = key.substr(key.find_last_of("/") + 1); // Extract the heading from the key
+        heading = heading.substr(0, heading.find(".txt")); // Remove the file extension
+        // npos means not found
+        FolderType type = key.find("public") != string::npos ? FolderType::PUBLIC : FolderType::PRIVATE;
+
+        unordered_map<string, int> wordFrequencies;
+        for (auto& [word, frequency] : value.items()) {
+            wordFrequencies[word] = frequency;
+        }
+        NoteHeadingAndType* noteHeadingAndType = new NoteHeadingAndType{heading, type, wordFrequencies};
+        notes_available.push_back(noteHeadingAndType);
+    }
+    return notes_available;
+}
+
+
 int main() {
-    // TODO: Do not load all the notes at once,
-    // create some sort of "a cache", maybe dictionary/json file, which contains the top 100 words and their frequency of each file
-
-    // two vectors- public and private (dynamic arrays) are declared 
-    // it stores the pointer to the Note object of Note class 
-    vector<Note*> public_notes, private_notes;
-
-    // they are calls to the function with two arguments 
-    // 1. the path to the directory where the notes are stored  (string concatenation)
-    // 2. reference to the vector where loaded notes should be stored 
-    // there is a Folder class that provides getFolderName static method
-    // it takes a FolderType enum value - public or private and returns the folder name as string
-
-    loadNotesFromDirectory("notes/"+getFolderName(FolderType::PUBLIC), public_notes);
-    loadNotesFromDirectory("notes/"+getFolderName(FolderType::PRIVATE), private_notes);
-
-    // choice stores the user input
-    // do while loop- code inside the loop will be executed atleast once and then repeatedly until the condition in while keywoard 
-    // is no longer true
+    /*
+    1. No need of creating public/private notes vectors.
+    2. Load metadata from metadata.json file and populate notes_available vector.
+    3. Use notes_available vector to display notes and search notes.
+    4. Create, modify and delete notes using the notes_available vector.
+    5. Update metadata.json file after creating, modifying and deleting notes.
+    */
+   vector <NoteHeadingAndType*> notes_available = loadMetadata();
 
     // TODO: Write a small summary of the tool and what it does, alots of COUT
     char choice;
@@ -61,19 +109,16 @@ int main() {
                 cout << "Enter search query: ";
                 cin.ignore();  
                 getline(cin, query);
-                searchNotes(private_notes, query);
+                searchNotes(notes_available, query);
                 break;
             }
 
-            // listing
-            // for loop iterates over each note in public and private_notes vector and displays it
-
             case '2': {
-                cout << "Listing notes sorted by time of creation:\n";
-                cout << "Public Notes" << endl;
-                for (const auto& note : public_notes) note ->display();
-                cout << "Private Notes" << endl;
-                for (const auto& note : private_notes) note->display();
+                for (auto& note : notes_available) {
+                    cout << "Heading: " << note->heading << endl;
+                    cout << "Type: " << (note->type == FolderType::PUBLIC ? "Public" : "Private") << endl;
+                    cout << endl;
+                }
                 break;
             }
 
@@ -81,19 +126,15 @@ int main() {
             // we take heading as input and put it in heading - we assign heading to content and make a new note (dynamic allocation)
             // we save it and note content is saved 
             // private_note object is pushed back into private_note vector 
-
-
 	        case '3': {
-            string heading, content;
+                string heading;
                 cout << "Enter the HEADING of the new note:\n";
                 cin.ignore(); 
                 getline(cin, heading);
-                content = heading;
-            
-                Note* note = new PrivateNote(heading, content);
+                Note* note = new PrivateNote(heading, "");
                 note->save();
-                private_notes.push_back(note);
-                    
+                notes_available.push_back(new NoteHeadingAndType{heading, FolderType::PRIVATE, {}});
+                generateMetadata(vector<Note*>{note});         
                 break;
             }
 	        case '4': {
@@ -101,11 +142,12 @@ int main() {
                 cout << "Enter the heading private note to modify: ";
                 cin.ignore(); // To consume the newline character left by cin
                 getline(cin, heading);
-		        for (auto& note : private_notes) {
-                    if (note->getHeading() == heading) {
-                        dynamic_cast<PrivateNote*>(note)->edit(heading);
-                        break;
-                    }
+                Note* tempNote = loadNoteFromHeadingInDirectory("notes/private", heading);
+                if (tempNote != nullptr) {
+                    tempNote->edit(heading);
+                    // TODO: y/s to save the note
+
+                    delete tempNote;
                 }
                 break;
             }
@@ -114,7 +156,13 @@ int main() {
                 cout << "Enter the heading of the private note to delete: ";
                 cin.ignore(); // To consume the newline character left by cin
                 getline(cin, heading);
-                deleteNote(private_notes, heading, FolderType::PRIVATE);
+
+                Note* tempNote = loadNoteFromHeadingInDirectory("notes/private", heading);
+                if (tempNote != nullptr) {
+                    deleteNoteFile(heading, FolderType::PRIVATE);
+                    cout << "Note deleted successfully.\n";
+                    delete tempNote;
+                }
                 break;
             }
             case '6':
@@ -125,7 +173,5 @@ int main() {
         }
     } while (choice != '6');
 
-    for (auto& note : public_notes) delete note;
-    for (auto& note : private_notes)delete note;
     return 0;
 }
