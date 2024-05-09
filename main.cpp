@@ -10,6 +10,8 @@
 using namespace std;
 
 int main() {
+    // TODO: Do not load all the notes at once,
+    // create some sort of "a cache", maybe dictionary/json file, which contains the top 100 words and their frequency of each file
     std::vector<Note*> public_notes, private_notes;
     loadNotesFromDirectory("notes/"+getFolderName(FolderType::PUBLIC), public_notes);
     loadNotesFromDirectory("notes/"+getFolderName(FolderType::PRIVATE), private_notes);
@@ -20,12 +22,11 @@ int main() {
         cout << "Choose an option:\n";
         cout << "1. Search notes\n";
         cout << "2. List notes\n";
-	cout << "3. Create a PRIVATE note\n";
-	cout << "4. Modify a PRIVATE note\n";
+        cout << "3. Create a PRIVATE note\n";
+        cout << "4. Modify a PRIVATE note\n";
         cout << "5. Delete a PRIVATE note\n";
         cout << "6. Exit\n";
         cout << "Enter your choice (1-6): ";
-        // TODO: Add a functionality to create a new Note, very easy you just need to do like PrivateNote("heading", "content")
         cin >> choice;
 
         switch (choice) {
@@ -36,6 +37,7 @@ int main() {
                 getline(cin, query);
                 // TODO: Change the searchNotes function to print the notes nicely in formatted form
                 searchNotes(private_notes, query);
+                searchNotes(public_notes, query);
                 break;
             }
             case '2': {
