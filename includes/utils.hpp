@@ -33,9 +33,7 @@ Note* createNoteFromFilename(const std::string& filepath) {
     std::getline(file, contentLine); // Skips the "Content:" line
 
     // Concatenate the rest of the file as the content
-    while (std::getline(file, contentLine)) {
-        content += contentLine + "\n";
-    }
+    while (std::getline(file, contentLine)) content += contentLine + "\n";
 
     // Remove the potential trailing newline
     if (!content.empty()) content.pop_back();
@@ -44,13 +42,11 @@ Note* createNoteFromFilename(const std::string& filepath) {
     heading = heading.substr(heading.find(":") + 2); // assumes "Heading: " is at the start
     
     Note* note;
-    if (filepath.find("/public/") != std::string::npos) {
+    if (filepath.find("/public/") != std::string::npos) // npos means not found
         note = new PublicNote(heading, content);
-    } else if (filepath.find("/private/") != std::string::npos) {
+    else if (filepath.find("/private/") != std::string::npos) // npos means not found
         note = new PrivateNote(heading, content);
-    } else {
-        return nullptr; // Unknown note type
-    }
+    else return nullptr; // Unknown note type
 
     return note;
 }
@@ -58,9 +54,7 @@ Note* createNoteFromFilename(const std::string& filepath) {
 void loadNotesFromDirectory(const std::string& directory, std::vector<Note*>& notes) {
     for (const auto& entry : std::filesystem::directory_iterator(directory)) {
         Note* note = createNoteFromFilename(entry.path());
-        if (note != nullptr) {
-            notes.push_back(note);
-        }
+        if (note != nullptr) notes.push_back(note);
     }
 }
 
@@ -94,17 +88,27 @@ void deleteNote(vector<Note*>& notes, const std::string& heading, FolderType f) 
     deleteNoteFile(heading, f);
 }
 
+void text_to_lower(string &s) {        
+    for(char &c : s) c = tolower(c);
+}
 
-std::vector<std::string> tokenize(const std::string& text) {
-    std::istringstream iss(text);
+std::vector<std::string> tokenize(std::string text) {
     std::vector<std::string> tokens;
     std::string token;
-    while (iss >> token) {
-        // Simple normalization: convert to lowercase
-        std::transform(token.begin(), token.end(), token.begin(),
-                       [](unsigned char c){ return std::tolower(c); });
-        tokens.push_back(token);
+    text_to_lower(text);
+    for (char c : text) {
+        // If the character is not a space, add it to the current token
+        if (c != ' ') token += c;
+        else {
+            // If a space is encountered, add the current token to the tokens vector
+            if (!token.empty()) {
+                tokens.push_back(token);
+                token.clear();
+            }
+        }
     }
+    // Add the last token if the input string doesn't end with a space
+    if (!token.empty()) tokens.push_back(token);
     return tokens;
 }
 
