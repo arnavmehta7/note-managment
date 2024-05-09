@@ -9,11 +9,20 @@ PrivateNote::PrivateNote(const string& heading, const string& content)
         // save();
     }
 
-void PrivateNote::edit(const string& newContent) {
-    content = newContent;
+void PrivateNote::edit(const string& heading) {
+    // Open the text file in the default text editor
+    string command = "open notes/private/" + heading + ".txt"; // For macOS
+    cout << "Opening file in text editor...\n";
+    int result = system(command.c_str());
+    
+    // Check if the system call was successful
+    if (result == -1) {
+        cerr << "Error: Failed to open text editor.\n";
+        return;
+    }
     time(&modificationTimestamp);
-    save();
 }
+
 
 void PrivateNote::display() const {
     cout << ">>>>> Heading: " << heading << endl;
