@@ -5,9 +5,7 @@
 
 using namespace std;
 PrivateNote::PrivateNote(const string& heading, const string& content)
-    : Note (heading, content) {
-        // save();
-    }
+    : Note (heading, content) {}
 
 void PrivateNote::edit(const string& heading) {
     // Open the text file in the default text editor

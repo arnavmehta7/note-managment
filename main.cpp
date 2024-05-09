@@ -15,7 +15,6 @@ int main() {
 
     // two vectors- public and private (dynamic arrays) are declared 
     // it stores the pointer to the Note object of Note class 
-
     vector<Note*> public_notes, private_notes;
 
     // they are calls to the function with two arguments 
@@ -71,13 +70,10 @@ int main() {
 
             case '2': {
                 cout << "Listing notes sorted by time of creation:\n";
-                // TODO: Create function to sort notes by creation time -- use GPT
-                // sortNotesByCreationTime(private_notes);
                 cout << "Public Notes" << endl;
                 for (const auto& note : public_notes) note ->display();
                 cout << "Private Notes" << endl;
                 for (const auto& note : private_notes) note->display();
-                // TODO: Also list public notes, after sorting
                 break;
             }
 
@@ -111,8 +107,6 @@ int main() {
                         break;
                     }
                 }
-                //edit(file);
-                // TODO link the code to txt file to directly open the txt folder.
                 break;
             }
             case '5': {
