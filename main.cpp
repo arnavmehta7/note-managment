@@ -5,6 +5,7 @@
 #include "PublicNote.hpp"
 #include "PrivateNote.hpp"
 #include "utils.hpp"
+#include "Note.hpp"
 
 using namespace std;
 
@@ -19,9 +20,11 @@ int main() {
         cout << "Choose an option:\n";
         cout << "1. Search notes\n";
         cout << "2. List notes\n";
-        cout << "3. Delete a PRIVATE note\n";
-        cout << "4. Exit\n";
-        cout << "Enter your choice (1-4): ";
+	cout << "3. Create a PRIVATE note\n";
+	cout << "4. Modify a PRIVATE note\n";
+        cout << "5. Delete a PRIVATE note\n";
+        cout << "6. Exit\n";
+        cout << "Enter your choice (1-6): ";
         // TODO: Add a functionality to create a new Note, very easy you just need to do like PrivateNote("heading", "content")
         cin >> choice;
 
@@ -39,12 +42,45 @@ int main() {
                 cout << "Listing notes sorted by time of creation:\n";
                 // TODO: Create function to sort notes by creation time -- use GPT
                 // sortNotesByCreationTime(private_notes);
+                cout << "Public Notes" << endl;
+                for (const auto& note : public_notes) note ->display();
+                cout << "Private Notes" << endl;
                 for (const auto& note : private_notes) note->display();
-
                 // TODO: Also list public notes, after sorting
                 break;
             }
-            case '3': {
+	    case '3': {
+            string heading, content;
+                    cout << "Enter the HEADING of the new note:\n";
+                    cin.ignore(); // To consume the newline character left by cin
+                    getline(cin, heading);
+            //cin >> heading;
+            content = heading;
+            //cout << "Enter the Content:\n";
+            //cin >> content;
+            
+            Note* note = new PrivateNote(heading, content);
+            note->save();
+            private_notes.push_back(note);
+                    
+            break;
+        }
+	    case '4': {
+                string heading;
+                cout << "Enter the heading private note to modify: ";
+                cin.ignore(); // To consume the newline character left by cin
+                getline(cin, heading);
+		        for (auto& note : private_notes) {
+                    if (note->getHeading() == heading) {
+                        dynamic_cast<PrivateNote*>(note)->edit(heading);
+                        break;
+                    }
+                }
+                //edit(file);
+                // TODO link the code to txt file to directly open the txt folder.
+                break;
+            }
+            case '5': {
                 string heading;
                 cout << "Enter the heading of the private note to delete: ";
                 cin.ignore(); // To consume the newline character left by cin
@@ -53,13 +89,13 @@ int main() {
                 deleteNote(private_notes, heading, FolderType::PRIVATE);
                 break;
             }
-            case '4':
+            case '6':
                 cout << "Exiting application.\n";
                 break;
             default:
-                cout << "Invalid choice. Please enter a number between 1 and 4.\n";
+                cout << "Invalid choice. Please enter a number between 1 and 5.\n";
         }
-    } while (choice != '4');
+    } while (choice != '6');
 
     for (auto& note : public_notes) delete note;
     for (auto& note : private_notes)delete note;
