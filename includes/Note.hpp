@@ -5,9 +5,9 @@
 
 class Note {
 protected:
-    std::string heading;
-    std::string content;
-    std::time_t modificationTimestamp;
+    string heading;
+    string content;
+    time_t modificationTimestamp;
 
 public:
     Note(const std::string& heading, const std::string& content);
