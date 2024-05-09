@@ -1,10 +1,10 @@
 #pragma once
 #include "Note.hpp"
-
+using namespace std;
 class PublicNote : public Note {
 public:
-    PublicNote(const std::string& heading, const std::string& content);
-    void edit(const std::string& newContent) override;
+    PublicNote(const string& heading, const string& content);
+    void edit(const string& newContent) override;
     void display() const override;
     void save() const override;
 };
