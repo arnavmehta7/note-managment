@@ -13,12 +13,11 @@
   "private/life.txt": {
     "life": 1
   },
+  "private/no.txt": {},
   "private/wtf.txt": {
-    "hi": 1,
-    "htis": 1,
     "is": 1,
-    "what": 1,
-    "wtf": 1
+    "life": 1,
+    "wtf?": 1
   },
   "public/Personal Reminder.txt": {
     "good": 1,

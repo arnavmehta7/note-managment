@@ -11,7 +11,7 @@
 using json = nlohmann::json;
 using namespace std;
 
-void generateMetadata(const vector<Note*>& notes) {
+void generateMetadataIfNotExisting(const vector<NoteHeadingAndType*>& notes_aval) {
     // Load existing metadata
     ifstream inFile("metadata.json");
     json metadata;
@@ -21,24 +21,57 @@ void generateMetadata(const vector<Note*>& notes) {
     }
 
     // Update metadata with new notes
-    for (Note* note : notes) {
-        string content = note->getContent();
-        vector<string> tokens = tokenize(content);
+    for (NoteHeadingAndType* noteData : notes_aval) {
+        // if the note's content is already in the metadata, skip it
+        if (metadata.contains(getFolderName(noteData->type) + "/" + noteData->heading + ".txt")) {
+            cout << "Note already in metadata: " << noteData->heading << endl;
+            continue;
+        }
+        
+        Note* note = loadNoteFromHeadingInDirectory("notes/"+getFolderName(noteData->type), noteData->heading);
+        if (note == nullptr) continue;
+
+        vector<string> tokens = tokenize(note->getContent());
         unordered_map<string, int> wordFrequency;
         string key;
 
         for (const auto& token : tokens) wordFrequency[token]++;
         if (dynamic_cast<PublicNote*>(note)) 
-            key = getFolderName(FolderType::PUBLIC) + "/" + note->getHeading() + ".txt";
+            key = getFolderName(FolderType::PUBLIC) + "/" + noteData->heading + ".txt";
         else
-            key = getFolderName(FolderType::PRIVATE) + "/" + note->getHeading() + ".txt";
+            key = getFolderName(FolderType::PRIVATE) + "/" + noteData->heading + ".txt";
 
-        if (metadata.find(key) == metadata.end()) { // Only add new notes
-            metadata[key] = wordFrequency;
-        }
+        metadata[key] = wordFrequency;
     }
 
     // Write updated metadata back to file
+    ofstream outFile("metadata.json");
+    outFile << metadata.dump(2); // 4 spaces for indentation
+    outFile.close();
+}
+
+// overwrite metadata function, takes one single note
+void overwriteMetadata(Note* note) {
+    ifstream inFile("metadata.json");
+    json metadata;
+    if (inFile.is_open()) {
+        inFile >> metadata;
+        inFile.close();
+    }
+
+    string content = note->getContent();
+    vector<string> tokens = tokenize(content);
+    unordered_map<string, int> wordFrequency;
+    string key;
+
+    for (const auto& token : tokens) wordFrequency[token]++;
+    if (dynamic_cast<PublicNote*>(note)) 
+        key = getFolderName(FolderType::PUBLIC) + "/" + note->getHeading() + ".txt";
+    else
+        key = getFolderName(FolderType::PRIVATE) + "/" + note->getHeading() + ".txt";
+
+    metadata[key] = wordFrequency;
+
     ofstream outFile("metadata.json");
     outFile << metadata.dump(2); // 4 spaces for indentation
     outFile.close();
@@ -76,7 +109,12 @@ int main() {
     4. Create, modify and delete notes using the notes_available vector.
     5. Update metadata.json file after creating, modifying and deleting notes.
     */
-   vector <NoteHeadingAndType*> notes_available = loadMetadata();
+    vector <NoteHeadingAndType*> notes_available = loadMetadata();
+    generateMetadataIfNotExisting(notes_available);
+    cout << "=================================="<<endl;
+    cout << "Initialization Successful"<<endl;
+    cout << "=================================="<<endl;
+    cout << "Welcome to the note-taking application!\n";
 
     // TODO: Write a small summary of the tool and what it does, alots of COUT
     char choice;
@@ -84,9 +122,9 @@ int main() {
         cout << "Choose an option:\n";
         cout << "1. Search notes\n";
         cout << "2. List notes\n";
-	    cout << "3. Create a PRIVATE note\n";
-	    cout << "4. Modify a PRIVATE note\n";
-        cout << "5. Delete a PRIVATE note\n";
+	    cout << "3. Create a private note -- creates a blank file \n";
+	    cout << "4. Modify a private note -- open's the file in your default editor\n";
+        cout << "5. Delete a private note\n";
         cout << "6. Exit\n";
         cout << "Enter your choice (1-6): ";
         cin >> choice;
@@ -134,7 +172,7 @@ int main() {
                 Note* note = new PrivateNote(heading, "");
                 note->save();
                 notes_available.push_back(new NoteHeadingAndType{heading, FolderType::PRIVATE, {}});
-                generateMetadata(vector<Note*>{note});         
+                overwriteMetadata(note);    
                 break;
             }
 	        case '4': {
@@ -145,9 +183,16 @@ int main() {
                 Note* tempNote = loadNoteFromHeadingInDirectory("notes/private", heading);
                 if (tempNote != nullptr) {
                     tempNote->edit(heading);
-                    // TODO: y/s to save the note
+                    delete tempNote; // Free the memory with the outdated version of note
 
-                    delete tempNote;
+                    cout << "Enter 'y' if you saved the note: ";
+                    char saveChoice;
+                    cin >> saveChoice;
+                    if (saveChoice == 'y') {
+                        Note* note = loadNoteFromHeadingInDirectory("notes/private", heading);
+                        overwriteMetadata(note);
+                        cout << "Note modified successfully.\n";
+                    }
                 }
                 break;
             }

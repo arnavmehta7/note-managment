@@ -59,7 +59,9 @@ Note* createNoteFromFilename(const string& filepath) {
 }
 
 Note* loadNoteFromHeadingInDirectory(const string& directory, const string& heading) {
+    cout << "Loading note from directory: " << directory << endl;
     for (const auto& entry : filesystem::directory_iterator(directory)) {
+        cout << "Entry: " << entry.path() << endl;
         string filename = entry.path().filename();
         if (filename == heading + ".txt") return createNoteFromFilename(entry.path());
     }
