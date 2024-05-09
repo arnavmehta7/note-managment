@@ -13,8 +13,14 @@
 
 #include "PublicNote.hpp"
 #include "PrivateNote.hpp"
-#include "Folder.hpp"
 using namespace std;
+
+// ENUMS, basically mean constants, instead of writing numbers, we use these
+enum FolderType { PUBLIC, PRIVATE };
+
+std::string getFolderName(FolderType type) {
+    return type == PUBLIC ? "public" : "private";
+}
 
 // TRICKY: This function is a factory function that parses a note file and creates a note object
 Note* createNoteFromFilename(const std::string& filepath) {
@@ -73,7 +79,7 @@ void deleteNoteFromMemory(vector<Note*>& notes, const std::string& heading) {
 }
 
 void deleteNoteFile(const std::string& heading, FolderType f) {
-    std::string path = "notes/" + Folder::getFolderName(f) + "/";
+    std::string path = "notes/" + getFolderName(f) + "/";
     path += heading + ".txt";
     cout << "Deleting file: " << path << endl;
     if (!std::filesystem::exists(path)) {

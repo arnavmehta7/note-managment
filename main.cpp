@@ -4,15 +4,14 @@
 #include <sstream>
 #include "PublicNote.hpp"
 #include "PrivateNote.hpp"
-#include "Folder.hpp"
 #include "utils.hpp"
 
 using namespace std;
 
 int main() {
     std::vector<Note*> public_notes, private_notes;
-    loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PUBLIC), public_notes);
-    loadNotesFromDirectory("notes/"+Folder::getFolderName(FolderType::PRIVATE), private_notes);
+    loadNotesFromDirectory("notes/"+getFolderName(FolderType::PUBLIC), public_notes);
+    loadNotesFromDirectory("notes/"+getFolderName(FolderType::PRIVATE), private_notes);
 
     // TODO: Write a small summary of the tool and what it does, alots of COUT
     char choice;
