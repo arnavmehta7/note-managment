@@ -2,7 +2,7 @@
 #include <string>
 #include <ctime>
 #include <filesystem>
-
+using namespace std;
 class Note {
 protected:
     string heading;
@@ -10,19 +10,19 @@ protected:
     time_t modificationTimestamp;
 
 public:
-    Note(const std::string& heading, const std::string& content);
-    virtual void edit(const std::string& newContent) = 0;
+    Note(const string& heading, const string& content);
+    virtual void edit(const string& newContent) = 0;
     virtual void display() const = 0;
     virtual ~Note() = default;
     
     virtual void save() const = 0;
 
     // get heading
-    std::string getHeading() const {
+    string getHeading() const {
         return heading;
     };
 
-    std::string getContent() const {
+    string getContent() const {
         return content;
     };
 
