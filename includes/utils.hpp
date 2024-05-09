@@ -14,6 +14,9 @@
 #include "PublicNote.hpp"
 #include "PrivateNote.hpp"
 #include "Folder.hpp"
+
+#include <map>
+
 using namespace std;
 
 // TRICKY: This function is a factory function that parses a note file and creates a note object
@@ -138,4 +141,112 @@ void searchNotes(const std::vector<Note*>& notes, const std::string& query) {
     for (const auto& entry : relevanceScores) {
         std::cout << "Note: " << entry.first->getHeading() << " - Relevance: " << entry.second << std::endl;
     }
+}
+    
+
+    // Define a struct to hold metadata
+struct Metadata {
+    std::string author;
+    std::string creationDate;
+    std::vector<std::string> keywords;
+    // Add more fields as needed
+};
+
+// Function to parse text file and extract metadata
+Metadata extractMetadata(const std::string& filePath) {
+    Metadata metadata;
+    std::ifstream file(filePath);
+    std::string line;
+
+    // Read each line of the file
+    while (std::getline(file, line)) {
+        // Example: Extract author from a line starting with "Author:"
+        if (line.find("Author:") == 0) {
+            metadata.author = line.substr(8); // Assuming author's name starts from index 8
+        }
+        // Example: Extract creation date from a line starting with "Date:"
+        else if (line.find("Date:") == 0) {
+            metadata.creationDate = line.substr(6); // Assuming date starts from index 6
+        }
+        // Example: Extract keywords from a line starting with "Keywords:"
+        else if (line.find("Keywords:") == 0) {
+            // Split the line by comma and add keywords to the vector
+            size_t pos = line.find(":");
+            std::string keywordList = line.substr(pos + 1);
+            size_t startPos = 0;
+            while ((pos = keywordList.find(',', startPos)) != std::string::npos) {
+                metadata.keywords.push_back(keywordList.substr(startPos, pos - startPos));
+                startPos = pos + 1;
+            }
+            // Add the last keyword
+            metadata.keywords.push_back(keywordList.substr(startPos));
+        }
+        // Add more conditions for other metadata fields
+    }
+
+    return metadata;
+}
+
+// Function to read metadata and build index
+std::map<std::string, std::pair<int, int>> buildIndex(const std::string& metadataFile) {
+    std::map<std::string, std::pair<int, int>> index;
+    std::ifstream meta(metadataFile);
+    if (!meta.is_open()) {
+        std::cerr << "Error opening metadata file\n";
+        return index;
+    }
+
+    std::string word;
+    int start, end;
+    while (meta >> word >> start >> end) {
+        index[word] = std::make_pair(start, end);
+    }
+
+    meta.close();
+    return index;
+}
+
+// Function to search for a word in text file using metadata
+std::string searchWord(const std::string& word, const std::string& textFile, const std::string& metadataFile) {
+    std::map<std::string, std::pair<int, int>> index = buildIndex(metadataFile);
+    std::ifstream text(textFile);
+    if (!text.is_open()) {
+        std::cerr << "Error opening text file\n";
+        return "";
+    }
+
+    if (index.find(word) == index.end()) {
+        return "Word not found";
+    }
+
+    std::pair<int, int> location = index[word];
+    text.seekg(location.first);
+    std::string foundWord;
+    char ch;
+    for (int i = location.first; i <= location.second && text.get(ch); ++i) {
+        foundWord += ch;
+    }
+
+    text.close();
+    return foundWord;
+}
+
+// Function to create metadata text file
+void createMetadataFile(const std::string& metadataFilePath, const Metadata& metadata)
+{
+    std::ofstream metadataFile(metadataFilePath);
+    if (!metadataFile.is_open()) {
+        std::cerr << "Error creating metadata file\n";
+        return;
+    }
+
+    metadataFile << "Author: " << metadata.author << std::endl;
+    metadataFile << "Date: " << metadata.creationDate << std::endl;
+    metadataFile << "Keywords: ";
+    for (const auto& keyword : metadata.keywords) {
+        metadataFile << keyword << ", ";
+    }
+    metadataFile << std::endl;
+
+    metadataFile.close();
 }
