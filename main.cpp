@@ -11,7 +11,7 @@
 using json = nlohmann::json;
 using namespace std;
 
-void generateMetadataIfNotExisting(const vector<NoteHeadingAndType*>& notes_aval) {
+void generateMetadataIfNotExisting(const vector<NoteAndWordsInfo*>& notes_aval) {
     // Load existing metadata
     ifstream inFile("metadata.json");
     json metadata;
@@ -21,7 +21,7 @@ void generateMetadataIfNotExisting(const vector<NoteHeadingAndType*>& notes_aval
     }
 
     // Update metadata with new notes
-    for (NoteHeadingAndType* noteData : notes_aval) {
+    for (NoteAndWordsInfo* noteData : notes_aval) {
         // if the note's content is already in the metadata, skip it
         if (metadata.contains(getFolderName(noteData->type) + "/" + noteData->heading + ".txt")) {
             cout << "Note already in metadata: " << noteData->heading << endl;
@@ -77,25 +77,47 @@ void overwriteMetadata(Note* note) {
     outFile.close();
 }
 
-
-vector<NoteHeadingAndType*> loadMetadata() {
+vector<NoteAndWordsInfo*> loadMetadata() {
     ifstream file("metadata.json");
     json metadata;
     file >> metadata;
 
-    vector<NoteHeadingAndType*> notes_available;
+    vector<NoteAndWordsInfo*> notes_available;
     for (auto& [key, value] : metadata.items()) {
         string heading = key.substr(key.find_last_of("/") + 1); // Extract the heading from the key
         heading = heading.substr(0, heading.find(".txt")); // Remove the file extension
-        // npos means not found
         FolderType type = key.find("public") != string::npos ? FolderType::PUBLIC : FolderType::PRIVATE;
 
         unordered_map<string, int> wordFrequencies;
         for (auto& [word, frequency] : value.items()) {
             wordFrequencies[word] = frequency;
         }
-        NoteHeadingAndType* noteHeadingAndType = new NoteHeadingAndType{heading, type, wordFrequencies};
+        NoteAndWordsInfo* noteHeadingAndType = new NoteAndWordsInfo{heading, type, wordFrequencies};
         notes_available.push_back(noteHeadingAndType);
+    }
+
+    vector<FolderType> dirTypes = {FolderType::PUBLIC, FolderType::PRIVATE};
+    for (const FolderType& type : dirTypes) {
+        string dir = "notes/" + getFolderName(type);
+        for (const auto& entry : filesystem::directory_iterator(dir)) {
+            string path = entry.path().string();
+            string filename = entry.path().filename();
+            string heading = filename.substr(0, filename.find(".txt"));
+            string key = getFolderName(type) + "/" + filename;
+
+            if (!metadata.contains(key)) {
+                cout << "Generating metadata for note: " << heading << endl; 
+                unordered_map<string, int> wordFrequency;
+
+                Note* note = loadNoteFromHeadingInDirectory(dir, heading);
+                for (string& token : tokenize(note->getContent()))
+                    wordFrequency[token]++;
+                delete note;
+
+                metadata[key] = wordFrequency;
+                notes_available.push_back(new NoteAndWordsInfo{heading, type, wordFrequency});
+            }
+        }
     }
     return notes_available;
 }
@@ -109,7 +131,7 @@ int main() {
     4. Create, modify and delete notes using the notes_available vector.
     5. Update metadata.json file after creating, modifying and deleting notes.
     */
-    vector <NoteHeadingAndType*> notes_available = loadMetadata();
+    vector <NoteAndWordsInfo*> notes_available = loadMetadata();
     generateMetadataIfNotExisting(notes_available);
     cout << "=================================="<<endl;
     cout << "Initialization Successful"<<endl;
@@ -171,7 +193,7 @@ int main() {
                 getline(cin, heading);
                 Note* note = new PrivateNote(heading, "");
                 note->save();
-                notes_available.push_back(new NoteHeadingAndType{heading, FolderType::PRIVATE, {}});
+                notes_available.push_back(new NoteAndWordsInfo{heading, FolderType::PRIVATE, {}});
                 overwriteMetadata(note);    
                 break;
             }

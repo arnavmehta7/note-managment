@@ -19,7 +19,7 @@ using namespace std;
 enum FolderType { PUBLIC, PRIVATE };
 
 
-struct NoteHeadingAndType {
+struct NoteAndWordsInfo {
     string heading;
     FolderType type;
     unordered_map<string, int> wordFrequencies;
@@ -59,13 +59,7 @@ Note* createNoteFromFilename(const string& filepath) {
 }
 
 Note* loadNoteFromHeadingInDirectory(const string& directory, const string& heading) {
-    cout << "Loading note from directory: " << directory << endl;
-    for (const auto& entry : filesystem::directory_iterator(directory)) {
-        cout << "Entry: " << entry.path() << endl;
-        string filename = entry.path().filename();
-        if (filename == heading + ".txt") return createNoteFromFilename(entry.path());
-    }
-    return nullptr;
+    return createNoteFromFilename(directory + "/" + heading + ".txt");
 }
 
 void deleteNoteFile(const string& heading, FolderType f) {
@@ -144,7 +138,6 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
         if (wordFrequencies.find(queryToken) != wordFrequencies.end())
             count += wordFrequencies.at(queryToken);
     }
-    cout << "Count: " << count << endl;
     return count;
 }
 
@@ -165,13 +158,11 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
 // couts the heading and count
 
 // void searchNotes(const vector<Note*>& notes, const string& query) {
-void searchNotes(const vector<NoteHeadingAndType*>& notes_available, const string& query) {
+void searchNotes(const vector<NoteAndWordsInfo*>& notes_available, const string& query) {
     vector<string> queryTokens = tokenize(query);
-    vector<pair<NoteHeadingAndType*, int>> relevanceScores;
+    vector<pair<NoteAndWordsInfo*, int>> relevanceScores;
 
-    cout << "Length of notes: " << notes_available.size() << endl;
-
-    for (NoteHeadingAndType* note : notes_available) {
+    for (NoteAndWordsInfo* note : notes_available) {
         int contentOccurrences = countOccurrences(queryTokens, note->wordFrequencies);
         relevanceScores.push_back({note, contentOccurrences});
     }
