@@ -1,0 +1,60 @@
+Last Modified: Wed May  1 18:41:16 2024
+Definition: An externality arises when a party's actions affect others who did not choose to incur that cost or benefit. It is a spillover impact not reflected in market prices.
+
+Types of Externalities:
+Negative Externality - Third party bears some cost (e.g. pollution)
+Positive Externality - Third party receives some benefit (e.g. vaccinations)
+
+Causes of Externalities:
+Lack of Property Rights - Poorly defined ownership allows external costs
+High Transaction Costs - Difficult to negotiate with all affected parties
+Irrational Behavior - Individuals may ignore external impacts
+
+Market Failure from Externalities:
+Negative externalities lead to oversupply/overconsumption
+Positive externalities lead to undersupply/underconsumption
+Prices do not account for full social costs and benefits
+
+Inefficient Allocation of Resources:
+Negative externality: Too many resources devoted to that good/activity
+Positive externality: Too few resources devoted
+
+Internalizing Externalities - Policies to adjust incentives:
+Taxes - On goods generating negative externalities
+Subsidies - For goods generating positive externalities
+Tradable Permits - Market for rights to externality-causing activity
+Regulations - Limits or bans on certain economic activities
+Property Rights - Assigning ownership to incentivize responsibility
+
+Evaluating Externality Policies:
+Compare costs of intervention to potential benefits
+Risk of inefficiencies, unintended consequences from policies
+Measurement challenges in quantifying externalities precisely
+Political incentives and feasibility of implementation
+
+Negative Externality Examples:
+Pollution (air, water, noise), greenhouse gas emissions, secondhand smoke
+Depletion of shared resources (forests, fisheries)
+Traffic congestion, crime
+
+Positive Externality Examples:
+Education (promotes economic growth, lowers crime)
+Vaccinations (reduces spread of disease)
+Innovation and new technology (benefits society broadly)
+
+Significance of Externalities:
+Common source of market failures requiring intervention
+Divergence between private returns and overall social welfare
+Impacts allocation of resources and economic efficiency
+Many real-world examples across different markets and industries
+Potential role for government to represent third parties affected
+
+Assumptions:
+People are rational and recognize their best interests
+Externalities are measurable and can be valued in monetary terms
+Government can effectively design and implement policies
+
+Extensions:
+Network Externalities - One person's utility affected by others' choices
+Intra-household Externalities - Within families/households
+Global Externalities - Across countries, borders (e.g. climate change)

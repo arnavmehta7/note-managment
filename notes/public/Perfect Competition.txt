@@ -1,0 +1,87 @@
+Last Modified: Wed May  1 18:41:16 2024
+Resources
+
+Perfect competition market in different scenarios
+a) When market demand increases –
+
+Short Run Adjustments:
+
+Increase in Price and Quantity: With an increase in market demand, the equilibrium price and quantity in the market both rise. This leads to an upward shift in MR on the firm’s side.
+
+No Change in Cost Structure: In the short run, the cost structure of firms remains unchanged. The MC intersects MR at a higher quantity on the firm's side.
+
+Profitability Impact: With costs remaining the same, firms experience higher profits in the short run.
+
+Long Run Adjustments:
+
+Entry of New Firms: In the long run, the higher profits attract new firms to enter the market. These new entrants increase the overall supply of the product in the market.
+
+Increase in Market Supply: With the entry of new firms, the market supply curve shifts to the right, leading to a decrease in market price.
+
+Zero Economic Profit Equilibrium: As more firms enter the market, competition intensifies, and market prices decrease. Eventually, firms in the market earn zero economic profits, where the price equals the average total cost of production.
+
+Adjustment in Output Levels: Firms adjust their levels of output in response to changes in market conditions. They may increase or decrease production levels based on market demand and cost considerations.
+
+b) When market supply decreases – In the short run, when the market supply of a good decreases, prices of a good increase. This shifts the MR curve of a representative firm upwards. The MC curve intersects the new MR at a higher quantity produced by the representative firm and with ATC remaining the same, profits in the short run rise. In the long run, new firms enter the market attracted by the profits causing a rightward shift in the market supply curve. This leads to an increase in the market supply of goods and price of goods reduce. The profits are given by (P-ATC(q))*q. Profits lead to more firms in the LR, so that in the LR, there are no excess profits for the firms. The profits earned by the representative firm are back to zero in the long run.
+
+c) When the marginal cost of a firm increases-
+
+Short Run Adjustments:
+
+Shift in MC and ATC Curves: An increase in MC shifts the marginal cost and average total cost (ATC) curves upwards. This indicates that the cost of producing each additional unit of output has risen.
+
+Shift in Market supply: An increase in marginal cost leads to a leftward shift in the market supply curve by an equivalent amount.
+
+Price Increase: With a decrease in supply, the market price of the goods increases.
+
+Effect on Marginal Revenue (MR): The increase in market price leads to an upward shift in the marginal revenue (MR) curve. The firms produce a lower quantity at the point where MR cuts MC. The price of the good is lower than ATC.
+
+Short-Run Losses: The gap between ATC and the price at which the goods are produced leads to losses in the short run.
+
+Long Run Adjustments:
+
+Exit of Firms: Firms experiencing losses in the short run may decide to exit the market, especially if they are unable to cover their costs. This reduces the number of firms in the market and shifts the supply curve further leftwards.
+
+Market Price Adjustment: With fewer firms in the market and reduced supply, the market price of the goods increases even more.
+
+Effect on MR: The higher market price causes the MR curve to shift up. The MR cuts the MC at the minimum of ATC.
+
+Zero Profit Equilibrium: Eventually, in the long run, firms in the market adjust to the new conditions till the firms earn zero economic profits. This implies that they cover all their costs and do not earn any additional profits.
+
+Market Supply and Price: Firms in the long run produce the same quantity as before, but at a higher price due to the increased market price of goods. The overall market supply also decreases due to the exit of firms.
+
+d) When the fixed cost of a firm increases –
+
+Short Run Adjustments:
+
+Effect on Cost Curves: An increase in AFC shifts the average total cost (ATC) curve upwards but does not affect the marginal cost (MC) curve. This is because AFC is a fixed cost and does not change with the level of output.
+
+No Immediate Output Changes: Since AFC does not directly affect the firm's decision-making in the short run, there is no change in the level of output produced by the firm.
+
+Price: The price remains unchanged in the short run, and firms continue to produce and sell at the prevailing market price.
+
+Profitability Impact: If the market price is less than ATC at this quantity, then the firms start to incur losses.
+
+Long Run Adjustments:
+
+Exit of Firms: In the long run, few firms exit the market.
+
+Effect on Market Supply: This decreases the market supply and may eventually lead to an increase in market prices.
+
+Market Price Adjustment: With reduced market supply, market prices may increase to a level where remaining firms can cover both variable and fixed costs.
+
+Zero Economic Profit Equilibrium: In the long run, firms adjust to the new market conditions. At the intersection of the marginal cost (MC) and marginal revenue (MR) curves, firms earn zero economic profit.
+
+Refer to Lecture Slides
+
+Perfect competition
+
+Coming up in the Next Class
+
+Monopoly
+Monopoly vs Perfect Competition
+Profit maximization in Monopoly
+Price Discrimination in Monopoly
+Monopolies: Three Things Economists Want You to Know (profspeak.com)
+
+Why monopolies don’t always harm the economy - Big Think

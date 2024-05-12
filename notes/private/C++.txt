@@ -1,4 +1,0 @@
-Heading: C++
-Last Modified: Thu May  2 02:25:23 2024
-Content:
-C++ Standard library

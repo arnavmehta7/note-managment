@@ -1,0 +1,48 @@
+﻿Last Modified: Wed May  1 18:41:16 2024
+IMPORTANT TOPICS COVERED IN LECTURE 20 ON 04-04-2024.
+
+Production Negative Externality
+
+The private marginal cost of the industry is the Supply curve, whereas the social marginal cost is SMC curve. The demand curve is the private marginal value of the consumers.
+A negative production externality implies that the production of the commodity imposes greater costs on the society than the firm faces.
+At the market equilibrium, society faces a DWL where the social marginal costs are greater than the private marginal value derived by the consumers.
+The firm has no incentive to limit its production as it seeks to maximize its profits.
+To remove the DWL of the negative externality, a benevolent social planner needs to reduce the quantity produced from market equilibrium to an efficient one where SMC cuts the demand curve.
+The government imposes a tax (Pc - Pf) to limit the quantity produced and achieve some net gain.
+Production Positive Externality
+
+A positive production externality implies that the cost of production of the commodity is borne by the firm, and it pays for something that the society benefits from.
+At the market equilibrium, society faces a DWL where the social marginal costs are lesser than the private marginal value derived by the consumers.
+The industry has no incentive to increase its production as it already functions at a point where supply meets demand.
+To remove the DWL of the positive externality, a benevolent social planner needs to increase the quantity produced from market equilibrium to an efficient one where SMC curve meets the demand curve.
+The government gives out a subsidy (Pf - Pc) to increase the quantity produced and achieve some net gain.
+Consumption Negative Externality
+
+The demand curve is the private marginal value of the consumers whereas SMV is the social marginal value curve.
+A negative consumption externality implies that the consumption of the commodity imparts a lower benefit to society as compared to the benefit of the consumer.
+At the market equilibrium, society faces a DWL where the private marginal costs are greater than the social marginal value derived by the consumers.
+The consumer has no incentive to limit its consumption as it seeks to maximize its utility.
+To remove the DWL of the negative externality, a benevolent social planner needs to reduce the quantity consumed from market equilibrium to an efficient one where SMV curve meets the supply curve.
+The government imposes a tax (Pc - Pf) to limit the quantity produced and thus achieves some net gains.
+Consumption Positive Externality
+
+The private marginal value of the consumer is the Demand curve, whereas the social marginal value is the SMV curve.
+The supply curve is the private marginal costs of the producer.
+A positive externality implies that the benefit derived by society from consumption is greater than the benefit of consumers.
+At the market equilibrium, society faces a DWL where the social marginal value is lesser than the private marginal costs borne by the producers.
+The consumer has no incentive to increase its consumption as it already functions at a point where supply meets demand.
+To remove the DWL of the positive externality, a benevolent social planner needs to increase the quantity produced from market equilibrium to an efficient one where SMV curve meets the supply curve.
+The government gives out a subsidy (Pf - Pc) to increase the quantity produced and achieve some net gain.
+Regulations vs Corrective Taxes
+
+Corrective taxes are imposed to reduce the consequences of a negative externality. In comparison, government regulation implies rules to control negative externalities.
+Corrective taxes alter incentives that market participants face to account for the presence of externalities and thereby move the allocation of resources closer to the social optimum. Thus, while corrective taxes raise revenue for the government, they also enhance economic efficiency.
+Tradable Pollution Permits
+
+The permits will end up in the hands of those firms that value them most highly, as judged by their willingness to pay.
+Those firms that can reduce pollution at a low cost will sell whatever permits they get, and firms that can reduce pollution only at a high cost will buy whatever permits they need. If there is a free market for the pollution in, the final allocation will be efficient regardless of the initial allocation.
+Refer to Chapter 10
+
+Mobility and congestion in urban India
+
+Coming up in the Next Class

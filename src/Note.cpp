@@ -18,7 +18,5 @@ void Note::save() const {
         cerr << "Error opening file for note: " << heading << endl;
         return;
     }
-    file << "Heading: " << heading << "\n";
     file << "Last Modified: " << ctime(&modificationTimestamp);
-    file << "Content:\n" << content;
 }

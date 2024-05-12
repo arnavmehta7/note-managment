@@ -19,7 +19,7 @@ using namespace std;
 enum FolderType { PUBLIC, PRIVATE };
 
 
-struct NoteHeadingAndType {
+struct NoteAndWordsInfo {
     string heading;
     FolderType type;
     unordered_map<string, int> wordFrequencies;
@@ -33,11 +33,11 @@ string getFolderName(FolderType type) {
 Note* createNoteFromFilename(const string& filepath) {
     ifstream file(filepath);
     if (!file.is_open()) return nullptr;
-
     string heading, lastModified, contentLine, content;
-    getline(file, heading); // Reads the heading line
+
+    // heading is the file name without the extension
+    heading = filesystem::path(filepath).stem().string();
     getline(file, lastModified); // Reads the last modified line
-    getline(file, contentLine); // Skips the "Content:" line
 
     // Concatenate the rest of the file as the content
     while (getline(file, contentLine)) content += contentLine + "\n";
@@ -45,27 +45,17 @@ Note* createNoteFromFilename(const string& filepath) {
     // Remove the potential trailing newline
     if (!content.empty()) content.pop_back();
 
-    // Extract the heading text
-    heading = heading.substr(heading.find(":") + 2); // assumes "Heading: " is at the start
-    
     Note* note;
     if (filepath.find("/public/") != string::npos) // npos means not found
         note = new PublicNote(heading, content);
     else if (filepath.find("/private/") != string::npos) // npos means not found
         note = new PrivateNote(heading, content);
     else return nullptr; // Unknown note type
-
     return note;
 }
 
 Note* loadNoteFromHeadingInDirectory(const string& directory, const string& heading) {
-    cout << "Loading note from directory: " << directory << endl;
-    for (const auto& entry : filesystem::directory_iterator(directory)) {
-        cout << "Entry: " << entry.path() << endl;
-        string filename = entry.path().filename();
-        if (filename == heading + ".txt") return createNoteFromFilename(entry.path());
-    }
-    return nullptr;
+    return createNoteFromFilename(directory + "/" + heading + ".txt");
 }
 
 void deleteNoteFile(const string& heading, FolderType f) {
@@ -144,7 +134,6 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
         if (wordFrequencies.find(queryToken) != wordFrequencies.end())
             count += wordFrequencies.at(queryToken);
     }
-    //cout << "Count: " << count << endl;
     return count;
 }
 
@@ -164,14 +153,11 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
 // for loop that iterates over entry pair - sorted pair - in relevanceScores vector
 // couts the heading and count
 
-// void searchNotes(const vector<Note*>& notes, const string& query) {
-void searchNotes(const vector<NoteHeadingAndType*>& notes_available, const string& query) {
+void searchNotes(const vector<NoteAndWordsInfo*>& notes_available, const string& query) {
     vector<string> queryTokens = tokenize(query);
-    vector<pair<NoteHeadingAndType*, int>> relevanceScores;
+    vector<pair<NoteAndWordsInfo*, int>> relevanceScores;
 
-    //cout << "Length of notes: " << notes_available.size() << endl;
-
-    for (NoteHeadingAndType* note : notes_available) {
+    for (NoteAndWordsInfo* note : notes_available) {
         int contentOccurrences = countOccurrences(queryTokens, note->wordFrequencies);
         relevanceScores.push_back({note, contentOccurrences});
     }
@@ -179,8 +165,8 @@ void searchNotes(const vector<NoteHeadingAndType*>& notes_available, const strin
     sort(relevanceScores.begin(), relevanceScores.end(), [](const auto& a, const auto& b) {
         return a.second > b.second;  
     });
-
     
     for (const auto& entry : relevanceScores)
-        cout << "Note: " << entry.first->heading << " - Relevance: " << entry.second << endl;
+        if (entry.second > 0)
+            cout << "Note: " << entry.first->heading << " - Relevance: " << entry.second << endl;
 }

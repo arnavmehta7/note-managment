@@ -1,0 +1,34 @@
+Last Modified: Wed May  1 18:41:16 2024
+Market Supply
+
+Supply represents the quantity that producers are willing and able to sell at various prices during a given period of time.
+Law of Supply: As price rises, quantity supplied also rises (upward sloping supply curve). Higher prices increase profitability and incentivize more production.
+Supply is influenced by input costs, number of sellers, technology, taxes/subsidies, expectations.
+Supply curve shifts right (increases) due to lower input costs, more sellers, better technology, favorable taxes.
+Supply curve shifts left (decreases) due to higher costs, fewer sellers, outdated technology, unfavorable taxes.
+
+Market Demand
+
+Demand represents the quantity that consumers are willing and able to purchase at various prices during a given period of time.
+Law of Demand: As price falls, quantity demanded rises (downward sloping demand curve). Lower prices increase consumer purchasing power.
+Demand is influenced by consumer income, prices of related goods, consumer tastes/preferences, number of buyers.
+
+Demand curve shifts right (increases) with higher income, higher prices of substitutes, lower prices of complements, population growth.
+Demand curve shifts left (decreases) with lower income, lower prices of substitutes, higher prices of complements, population decline.
+
+Market Equilibrium
+
+Determined by the intersection of the supply and demand curves
+Equilibrium price is where quantity supplied equals quantity demanded
+Excess supply (surplus) exists if price is above the equilibrium
+Excess demand (shortage) exists if price is below the equilibrium
+Market forces push price toward the equilibrium to resolve imbalances
+
+Supply and Demand Dynamics
+
+Shifts in supply or demand cause the entire equilibrium point to change
+Excess demand raises equilibrium price and quantity; excess supply lowers them
+Government policies like taxes, subsidies, price controls can disrupt market equilibrium
+Supply and demand analysis helpful for understanding real-world markets
+
+The interplay of supply and demand is fundamental to analyzing how market prices are determined and how quantities transacted in perfectly competitive markets adjust to changes in market conditions.
