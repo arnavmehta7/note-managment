@@ -45,9 +45,6 @@ Note* createNoteFromFilename(const string& filepath) {
     // Remove the potential trailing newline
     if (!content.empty()) content.pop_back();
 
-    // Extract the heading text
-    heading = heading.substr(heading.find(":") + 2); // assumes "Heading: " is at the start
-    
     Note* note;
     if (filepath.find("/public/") != string::npos) // npos means not found
         note = new PublicNote(heading, content);
