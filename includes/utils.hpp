@@ -33,11 +33,11 @@ string getFolderName(FolderType type) {
 Note* createNoteFromFilename(const string& filepath) {
     ifstream file(filepath);
     if (!file.is_open()) return nullptr;
-
     string heading, lastModified, contentLine, content;
-    getline(file, heading); // Reads the heading line
+
+    // heading is the file name without the extension
+    heading = filesystem::path(filepath).stem().string();
     getline(file, lastModified); // Reads the last modified line
-    getline(file, contentLine); // Skips the "Content:" line
 
     // Concatenate the rest of the file as the content
     while (getline(file, contentLine)) content += contentLine + "\n";
@@ -54,7 +54,6 @@ Note* createNoteFromFilename(const string& filepath) {
     else if (filepath.find("/private/") != string::npos) // npos means not found
         note = new PrivateNote(heading, content);
     else return nullptr; // Unknown note type
-
     return note;
 }
 

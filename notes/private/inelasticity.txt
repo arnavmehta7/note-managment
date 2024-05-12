@@ -1,7 +1,4 @@
-Heading: Inelasticity
 Last Modified: Wed May  1 18:41:16 2024
-Content:
-
 Inelastic Demand (Elasticity < 1)
 
 Quantity demanded changes less than proportionally to a price change

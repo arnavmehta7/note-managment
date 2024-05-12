@@ -1,9 +1,4 @@
 {
-  "private/C++.txt": {
-    "c++": 1,
-    "library": 1,
-    "standard": 1
-  },
   "private/Elasticity.txt": {
     "%": 4,
     "(all": 1,
@@ -844,25 +839,6 @@
     "where": 1,
     "willing": 2,
     "with": 2
-  },
-  "private/The Way to Live.txt": {
-    "good": 1,
-    "life": 1,
-    "live": 1,
-    "reminder": 1
-  },
-  "private/hi.txt": {
-    "hi": 1,
-    "htis": 1,
-    "is": 1,
-    "what": 1,
-    "wtf": 1
-  },
-  "private/no.txt": {},
-  "private/wtf.txt": {
-    "is": 1,
-    "life": 1,
-    "wtf?": 1
   },
   "public/Externalities & Market Intervention.txt": {
     "(pc": 2,

@@ -11,45 +11,6 @@
 using json = nlohmann::json;
 using namespace std;
 
-void generateMetadataIfNotExisting(const vector<NoteAndWordsInfo*>& notes_aval) {
-    // Load existing metadata
-    ifstream inFile("metadata.json");
-    json metadata;
-    if (inFile.is_open()) {
-        inFile >> metadata;
-        inFile.close();
-    }
-
-    // Update metadata with new notes
-    for (NoteAndWordsInfo* noteData : notes_aval) {
-        // if the note's content is already in the metadata, skip it
-        if (metadata.contains(getFolderName(noteData->type) + "/" + noteData->heading + ".txt")) {
-            cout << "Note already in metadata: " << noteData->heading << endl;
-            continue;
-        }
-        
-        Note* note = loadNoteFromHeadingInDirectory("notes/"+getFolderName(noteData->type), noteData->heading);
-        if (note == nullptr) continue;
-
-        vector<string> tokens = tokenize(note->getContent());
-        unordered_map<string, int> wordFrequency;
-        string key;
-
-        for (const auto& token : tokens) wordFrequency[token]++;
-        if (dynamic_cast<PublicNote*>(note)) 
-            key = getFolderName(FolderType::PUBLIC) + "/" + noteData->heading + ".txt";
-        else
-            key = getFolderName(FolderType::PRIVATE) + "/" + noteData->heading + ".txt";
-
-        metadata[key] = wordFrequency;
-    }
-
-    // Write updated metadata back to file
-    ofstream outFile("metadata.json");
-    outFile << metadata.dump(2); // 4 spaces for indentation
-    outFile.close();
-}
-
 // overwrite metadata function, takes one single note
 void overwriteMetadata(Note* note) {
     ifstream inFile("metadata.json");
@@ -89,9 +50,8 @@ vector<NoteAndWordsInfo*> loadMetadata() {
         FolderType type = key.find("public") != string::npos ? FolderType::PUBLIC : FolderType::PRIVATE;
 
         unordered_map<string, int> wordFrequencies;
-        for (auto& [word, frequency] : value.items()) {
-            wordFrequencies[word] = frequency;
-        }
+        for (auto& [word, frequency] : value.items()) wordFrequencies[word] = frequency;
+
         NoteAndWordsInfo* noteHeadingAndType = new NoteAndWordsInfo{heading, type, wordFrequencies};
         notes_available.push_back(noteHeadingAndType);
     }
@@ -119,7 +79,12 @@ vector<NoteAndWordsInfo*> loadMetadata() {
             }
         }
     }
+    // saving the metadata
+    ofstream outFile("metadata.json");
+    outFile << metadata.dump(2);
+    outFile.close();
     return notes_available;
+
 }
 
 
@@ -132,7 +97,6 @@ int main() {
     5. Update metadata.json file after creating, modifying and deleting notes.
     */
     vector <NoteAndWordsInfo*> notes_available = loadMetadata();
-    generateMetadataIfNotExisting(notes_available);
     cout << "=================================="<<endl;
     cout << "Initialization Successful"<<endl;
     cout << "=================================="<<endl;
@@ -250,9 +214,7 @@ int main() {
                         note->print();
                         delete note;
                     }
-                    else {
-                        cout << "Note not found.\n";
-                    }
+                    else cout << "Note not found.\n";
                 }
 
                 break;

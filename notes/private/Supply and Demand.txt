@@ -1,6 +1,4 @@
-Heading: Supply and Demand
 Last Modified: Wed May  1 18:41:16 2024
-Content:
 Market Supply
 
 Supply represents the quantity that producers are willing and able to sell at various prices during a given period of time.

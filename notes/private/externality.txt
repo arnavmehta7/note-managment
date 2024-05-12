@@ -1,6 +1,4 @@
-Heading: Personal Reminder
 Last Modified: Wed May  1 18:41:16 2024
-Content:
 Definition: An externality arises when a party's actions affect others who did not choose to incur that cost or benefit. It is a spillover impact not reflected in market prices.
 
 Types of Externalities:

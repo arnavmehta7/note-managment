@@ -1,7 +1,4 @@
-Heading: Elasticity
 Last Modified: Wed May  1 18:41:16 2024
-Content:
-
 Price Elasticity of Demand
 
 Measures how responsive quantity demanded is to a change in price

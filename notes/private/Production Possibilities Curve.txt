@@ -1,6 +1,4 @@
-Heading: Production Possibilities Curve
 Last Modified: Wed May  1 18:41:16 2024
-Content:
 The production possibilities curve (PPC) is a graph that shows all of the different combinations of output that can be produced given current resources and technology. 
 Sometimes called the production possibilities frontier (PPF), the PPC illustrates scarcity and tradeoffs.
 A production possibilities frontier, or PPF, defines the set of possible combinations of goods and services a society can produce given the resources available. 

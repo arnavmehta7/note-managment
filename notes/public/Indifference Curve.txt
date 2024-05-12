@@ -1,6 +1,4 @@
-Heading: Indifference Curve 
 Last Modified: Wed May  1 18:41:16 2024
-Content:
 Perfect substitutes:
 
 Two goods with a linear utility function and straight-line indifference curves.
