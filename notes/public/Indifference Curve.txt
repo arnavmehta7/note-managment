@@ -1,0 +1,36 @@
+Heading: Indifference Curve 
+Last Modified: Wed May  1 18:41:16 2024
+Content:
+Perfect substitutes:
+
+Two goods with a linear utility function and straight-line indifference curves.
+Perfect Complements:
+
+One way to represent preference over two goods which are perfect complements is using utility function U (Xa, Xb) = Min [Xa, Xb], where the smaller of the two quantities of the good is assigned the function's value.
+The Indifference curves of these goods are L-shaped as even if we get many more of one good, we will still have the same utility as before. The indifference curves are therefore vertical along q2 and horizontal along q1, and the only way to reach a higher level of utility is to get more of both good 1 and good 2.
+Marginal Rate of Substitution (MRS):
+
+MRS measures the willingness of a consumer to replace one good for another good, as long as the same satisfaction—or utility—is maintained.
+The MRS is the negative of the slope of the indifference curve at any given point along the curve.
+When the law of diminishing MRS is in effect, it means that as if the quantity of consumptions of one good over the other increases on the indifference curve, then MRS declines.
+Slope of Budget line:
+
+It is the negative of the ratio of the prices of good 1 and good 2.
+Optimal condition in case of convex indifference curve:
+
+The Optimum point is where the slope of the indifference curve equals the slope of the budget constraint, the indifference curve is tangent to the budget constraint.
+Consumer chooses consumption of the two goods so that the marginal rate of substitution equals the relative price.
+Refer – Mankiw, Chapter 21
+Refer - Intermediate Microeconomics by Hal R Varian
+
+Coming up in the Next Class
+
+RESOURCES
+
+The applicability of the Tangency Condition in different cases.
+Refer – Mankiw, Chapter 21
+Refer - Intermediate Microeconomics by Hal R Varian
+
+
+
+

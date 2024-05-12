@@ -1,0 +1,54 @@
+﻿Heading: Trade Dynamics
+Last Modified: Wed May  1 18:41:16 2024
+Content:
+IMPORTANT TOPICS COVERED IN LECTURE 17 ON 14-03-2024
+
+RESOURCES
+
+Opening to Trade
+
+The price prevailing in world markets is the world price.
+If the world price of a good is higher than the domestic price, then the country will export as producers will be eager to receive the higher prices available abroad.
+If the world price of a good is lower than the domestic price, then the country will import as foreign sellers offer a cheaper price.
+The economy is assumed to be a small open economy. That means, changes in supply and demand by domestic producers and consumers respectively (e.g., because of trade policies) have little effect on world prices. (Domestic demand and supply are too small with respect to total demand and supply from the rest of the world in world markets). The world price is determined by world demand and supply in world markets.
+The small open economy would be a price taker in world markets:
+As exporters, when their domestic price is less than the world price, producers have no incentive to charge less than the world price in world markets. If they can sell all they can produce at the increased world price, why wouldn’t they? (Note they are also now incentivized to produce more at the increased per unit price, and they can choose to sell all of it internationally at the higher world price). If producers charge higher than the world price, nobody will buy from them.
+As importers (when domestic price is greater than world price) consumers will just pay the world price in world markets.
+Winners and Losers from Trade
+
+Export:
+
+If the domestic price is lower than the world price, firms will export and charge the world price in world markets.
+Even in domestic markets, firms would start charging the higher world price (why would they sell at a cheaper price, if they can sell all the goods they now produce at a higher price internationally). The domestic consumer, therefore, will have to pay a higher price to get that good.
+Firms, therefore, are indifferent between selling domestically/internationally, but it is assumed that firms satisfy all buyers in the domestic market who can pay this price. (International market clearing would ensure that both international and domestic consumers willing to pay this price are satisfied)
+After the domestic price has risen to equal the world price, domestic quantity supplied and domestic quantity demanded differ; the good market is still in equilibrium because there is now another participant in the market: the rest of the world.
+One can view the horizontal line at the world price as representing the rest of the world’s demand for the good. This demand curve is perfectly elastic because the small economy can sell as many goods as it wants at the world price.
+When a country allows trade and becomes an exporter of a good, domestic producers of the good are better off, and domestic consumers of the good are worse off.
+Import:
+
+If the domestic price is greater than the world price, domestic consumers will import and pay a lower price in world markets.
+In domestic markets, domestic firms will be forced to charge a lower price – same as the world price because domestic consumers now have an option to buy the good from world markets at the cheaper price. Fewer firms than before will be willing to offer this lower price.
+Consumers, therefore, are indifferent between buying the goods domestically/internationally, but it is assumed that consumers surely buy from all domestic producers who can offer that price. (International market clearing would ensure that both international and domestic producers willing to supply at this price get their goods sold)
+The domestic quantity supplied is less than the domestic quantity demanded. The difference between the domestic quantity demanded and the domestic quantity supplied is bought from other countries.
+The horizontal line at the world price represents the supply of the rest of the world. This supply curve is perfectly elastic because the small economy can buy as many goods as it wants at the world price.
+Domestic consumers are better off (they can now buy good at a lower price), and domestic producers are worse off (they now must sell good at a lower price).
+Trade raises the economic well-being of a nation in the sense that the gains of the winners exceed the losses of the losers.
+Clampdown on chip exports is the most consequential US move against China yet
+
+Trade can worsen income inequality
+
+Welcome to the UK Trade Policy Observatory
+
+Latest Briefing Papers
+
+Refer to Lecture 17 Slides.
+
+Refer to Chapter 9
+
+Coming up in the Next Class
+
+RESOURCES
+
+The Effects of a Tariff and Import Quotas.
+
+Refer to Chapter 9
