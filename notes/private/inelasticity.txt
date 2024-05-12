@@ -1,0 +1,50 @@
+Heading: Inelasticity
+Last Modified: Wed May  1 18:41:16 2024
+Content:
+
+Inelastic Demand (Elasticity < 1)
+
+Quantity demanded changes less than proportionally to a price change
+Total revenue moves in the same direction as the price change
+Examples: Necessities (food, gasoline), goods with no close substitutes, addictive goods
+
+Implications of Inelastic Demand
+
+Firms can raise prices to increase total revenue
+Consumers have limited ability to avoid price increases
+Tax incidence falls more heavily on consumers
+
+Factors Causing Inelastic Demand
+
+Lack of substitutes available
+Good is a necessity or essentialitem
+Consumption is from habit or addiction
+Shorter time periods (less flexibility to adjust)
+
+Inelastic Supply (Elasticity < 1)
+
+Quantity supplied is less responsive to price changes
+Can occur in short run when firms can't easily adjust production levels
+Examples: Agricultural goods with long growing cycles, manufactured goods requiring specialized inputs
+
+Implications of Inelastic Supply
+
+Restricting output can sharply raise prices and revenues
+Easy for suppliers to pass along cost increases to consumers
+Tax incidence falls more heavily on producers
+
+Perfecting Inelasticity
+
+A coefficient of zero means demand/supply is perfectly inelastic
+Quantity is completely unresponsive to any price changes
+Few examples in reality due to substitute availability
+
+Importance of Inelasticity
+
+Crucial factor in incidence analysis of taxes/subsidies
+Affects price-setting strategies and revenue management
+Highlights lack of available substitutes or flexibility
+Identifies essentiality or lack of substitution possibilities
+
+Elasticity tends to vary across different portions of a demand or supply curve. 
+Inelastic portions represent relatively unresponsive regions insensitive to price fluctuations.
