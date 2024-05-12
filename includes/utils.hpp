@@ -170,8 +170,8 @@ void searchNotes(const vector<NoteAndWordsInfo*>& notes_available, const string&
     sort(relevanceScores.begin(), relevanceScores.end(), [](const auto& a, const auto& b) {
         return a.second > b.second;  
     });
-
     
     for (const auto& entry : relevanceScores)
-        cout << "Note: " << entry.first->heading << " - Relevance: " << entry.second << endl;
+        if (entry.second > 0)
+            cout << "Note: " << entry.first->heading << " - Relevance: " << entry.second << endl;
 }

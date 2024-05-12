@@ -2,6 +2,7 @@
 #include <string>
 #include <ctime>
 #include <filesystem>
+#include <iostream>
 using namespace std;
 class Note {
 protected:
@@ -16,6 +17,10 @@ public:
     virtual ~Note() = default;
     
     virtual void save() const = 0;
+    void print() const {
+        cout << ">>>>> Heading: " << heading << endl;
+        cout << content << endl;
+    }
 
     // get heading
     string getHeading() const {

@@ -147,8 +147,9 @@ int main() {
 	    cout << "3. Create a private note -- creates a blank file \n";
 	    cout << "4. Modify a private note -- open's the file in your default editor\n";
         cout << "5. Delete a private note\n";
-        cout << "6. Exit\n";
-        cout << "Enter your choice (1-6): ";
+        cout << "6. Print note\n";
+        cout << "7. Exit\n";
+        cout << "Enter your choice (1-7): ";
         cin >> choice;
 
         // the user input is stored in choice
@@ -232,7 +233,31 @@ int main() {
                 }
                 break;
             }
-            case '6':
+            case '6': {
+                string heading;
+                cout << "Enter the heading of the note to print: ";
+                cin.ignore(); // To consume the newline character left by cin
+                getline(cin, heading);
+
+                Note* note = loadNoteFromHeadingInDirectory("notes/private", heading);
+                if (note != nullptr) {
+                    note->print();
+                    delete note;
+                }
+                else {
+                    Note* note = loadNoteFromHeadingInDirectory("notes/public", heading);
+                    if (note != nullptr) {
+                        note->print();
+                        delete note;
+                    }
+                    else {
+                        cout << "Note not found.\n";
+                    }
+                }
+
+                break;
+            }
+            case '7':
                 cout << "Exiting application.\n";
                 break;
             default:
