@@ -1,0 +1,53 @@
+Heading: Elasticity
+Last Modified: Wed May  1 18:41:16 2024
+Content:
+
+Price Elasticity of Demand
+
+Measures how responsive quantity demanded is to a change in price
+Calculated as: % Change in Quantity Demanded / % Change in Price
+Elasticities greater than 1 are considered elastic (very responsive to price changes)
+Elasticities less than 1 are considered inelastic (less responsive to price changes)
+Determinants: Availability of substitutes, necessity vs. luxury, time period
+
+Price Elasticity of Supply
+
+Measures how responsive quantity supplied is to a change in price
+Calculated as: % Change in Quantity Supplied / % Change in Price
+Usually inelastic in the short run (difficult to rapidly adjust production)
+More elastic in the long run as firms can modify production levels
+
+Cross-Price Elasticity
+
+Measures responsiveness of demand for one good to a change in price of another good
+Substitutes have positive cross-price elasticity
+Complements have negative cross-price elasticity
+
+Income Elasticity
+
+Measures responsiveness of demand to a change in consumer income
+Positive for normal goods (demand rises as income rises)
+Negative for inferior goods (demand falls as income rises)
+
+Elasticity Along a Linear Demand Curve
+
+Elasticity varies at different points along a linear demand curve
+More elastic (flatter portion) at higher prices/quantities
+Less elastic (steeper portion) at lower prices/quantities
+
+Applications and Significance
+
+Crucial for firms' pricing strategies and understanding revenue impacts
+Factors into tax incidence and deadweight loss analysis
+Useful for forecasting impacts of changing incomes or prices
+Highlights differences between necessities vs luxuries
+Important for government policies related to taxes, subsidies, regulations
+
+Limitations and Assumptions
+
+Depends on accurate measurement of prices and quantities
+Assumes ceteris paribus (all other factors constant)
+Periods of analysis can impact calculated elasticities
+Problematic with extreme valuations (zero prices or infinities)
+
+The elasticity concepts describe the degrees of responsiveness or sensitivities for various demand and supply relationships.
