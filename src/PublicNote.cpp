@@ -9,9 +9,7 @@ PublicNote::PublicNote(const string& heading, const string& content)
     : Note (heading, content) {}
 
 void PublicNote::edit(const string& newContent) {
-    content = newContent;
-    time(&modificationTimestamp); // update modification timestamp
-    save(); // save the note after editing
+    cout << "Public Notes can never be edited";
 }
 
 void PublicNote::display() const {
@@ -20,12 +18,13 @@ void PublicNote::display() const {
 }
 
 void PublicNote::save() const {
-    filesystem::create_directories("notes/public"); // Ensure the directory exists
-    string filename = "notes/public/" + heading + ".txt";
-    ofstream file(filename);
-    if (!file) {
-        cerr << "Error opening file for note: " << heading << endl;
-        return;
-    }
-    file << "Last Modified: " << ctime(&modificationTimestamp);
+    cout << "Public Notes can never be saved" << endl;
+    // filesystem::create_directories("notes/public"); // Ensure the directory exists
+    // string filename = "notes/public/" + heading + ".txt";
+    // ofstream file(filename);
+    // if (!file) {
+    //     cerr << "Error opening file for note: " << heading << endl;
+    //     return;
+    // }
+    // file << "Last Modified: " << ctime(&modificationTimestamp);
 }
