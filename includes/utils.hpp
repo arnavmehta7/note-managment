@@ -144,7 +144,7 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
         if (wordFrequencies.find(queryToken) != wordFrequencies.end())
             count += wordFrequencies.at(queryToken);
     }
-    cout << "Count: " << count << endl;
+    //cout << "Count: " << count << endl;
     return count;
 }
 
@@ -169,7 +169,7 @@ void searchNotes(const vector<NoteHeadingAndType*>& notes_available, const strin
     vector<string> queryTokens = tokenize(query);
     vector<pair<NoteHeadingAndType*, int>> relevanceScores;
 
-    cout << "Length of notes: " << notes_available.size() << endl;
+    //cout << "Length of notes: " << notes_available.size() << endl;
 
     for (NoteHeadingAndType* note : notes_available) {
         int contentOccurrences = countOccurrences(queryTokens, note->wordFrequencies);
