@@ -1,6 +1,5 @@
 #pragma once
 #include "utils.hpp"
-
 #include <iostream>
 #include <filesystem>
 #include <fstream>
@@ -96,6 +95,20 @@ void deleteNoteFile(const string& heading, FolderType f) {
 // then we add the lowercase token to the tokens vector
 // return tokens - returns the vector of lowercases 
 
+
+// std::vector<std::string> tokenize(const std::string& text) {
+//     std::istringstream iss(text);
+//     std::vector<std::string> tokens;
+//     std::string token;
+//     while (iss >> token) {
+//         // Simple normalization: convert to lowercase
+//         std::transform(token.begin(), token.end(), token.begin(),
+//                        [](unsigned char c){ return std::tolower(c); });
+//         tokens.push_back(token);
+//     }
+//     return tokens;
+// }
+
 void text_to_lower(string &s) {for(char &c : s) c = tolower(c);}
 
 vector<string> tokenize(string text) {
@@ -155,18 +168,26 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
 
 void searchNotes(const vector<NoteAndWordsInfo*>& notes_available, const string& query) {
     vector<string> queryTokens = tokenize(query);
-    vector<pair<NoteAndWordsInfo*, int>> relevanceScores;
+    vector<pair<NoteAndWordsInfo*, int>> NoteAndrelevanceScores;
 
     for (NoteAndWordsInfo* note : notes_available) {
         int contentOccurrences = countOccurrences(queryTokens, note->wordFrequencies);
-        relevanceScores.push_back({note, contentOccurrences});
+        NoteAndrelevanceScores.push_back({note, contentOccurrences});
     }
 
-    sort(relevanceScores.begin(), relevanceScores.end(), [](const auto& a, const auto& b) {
+    sort(NoteAndrelevanceScores.begin(), NoteAndrelevanceScores.end(), [](const auto& a, const auto& b) {
         return a.second > b.second;  
     });
     
-    for (const auto& entry : relevanceScores)
+    // check the first note, if it is 0 relevance, then say no relevant notes found
+    if (NoteAndrelevanceScores[0].second == 0) {
+        cout << ">>>> No relevant notes found" << endl;
+        return;
+    }
+
+    for (const auto& entry : NoteAndrelevanceScores)
         if (entry.second > 0)
             cout << "Note: " << entry.first->heading << " - Relevance: " << entry.second << endl;
+        else
+            break;
 }

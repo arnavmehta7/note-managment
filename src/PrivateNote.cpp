@@ -15,7 +15,7 @@ void PrivateNote::edit(const string& heading) {
     
     // Check if the system call was successful
     if (result == -1) {
-        cerr << "Error: Failed to open text editor.\n";
+        cout << "Error: Failed to open text editor.\n";
         return;
     }
     time(&modificationTimestamp);
@@ -31,9 +31,9 @@ void PrivateNote::display() const {
 void PrivateNote::save() const {
     filesystem::create_directories("notes/private"); // Ensure the directory exists
     string filename = "notes/private/" + heading + ".txt";
-    ofstream file(filename);
+    ofstream file(filename); // ofstream means output file stream
     if (!file) {
-        cerr << "Error opening file for note: " << heading << endl;
+        cout << "Error opening file for note: " << heading << endl;
         return;
     }
     file << "Last Modified: " << ctime(&modificationTimestamp);
