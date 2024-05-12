@@ -153,7 +153,6 @@ int countOccurrences(const vector<string>& tokens, const unordered_map<string, i
 // for loop that iterates over entry pair - sorted pair - in relevanceScores vector
 // couts the heading and count
 
-// void searchNotes(const vector<Note*>& notes, const string& query) {
 void searchNotes(const vector<NoteAndWordsInfo*>& notes_available, const string& query) {
     vector<string> queryTokens = tokenize(query);
     vector<pair<NoteAndWordsInfo*, int>> relevanceScores;

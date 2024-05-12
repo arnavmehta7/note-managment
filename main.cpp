@@ -100,20 +100,20 @@ int main() {
     cout << "=================================="<<endl;
     cout << "Initialization Successful"<<endl;
     cout << "=================================="<<endl;
-    cout << "Welcome to the note-taking application!\n";
+    cout << "\nWelcome to ASE!\n";
 
     // TODO: Write a small summary of the tool and what it does, alots of COUT
     char choice;
     do {
-        cout << "Choose an option:\n";
-        cout << "1. Search notes\n";
-        cout << "2. List notes\n";
-	    cout << "3. Create a private note -- creates a blank file \n";
-	    cout << "4. Modify a private note -- open's the file in your default editor\n";
-        cout << "5. Delete a private note\n";
-        cout << "6. Print note\n";
+        cout << "\nHow may I help you?\n";
+        cout << "1. Search \n";
+        cout << "2. Recents \n";
+        cout << "3. Add new note\n";
+        cout << "4. Edit notes\n";
+        cout << "5. Remove notes\n";
+        cout << "6. Print notes\n";
         cout << "7. Exit\n";
-        cout << "Enter your choice (1-7): ";
+        cout << "Your choice (1-6): ";
         cin >> choice;
 
         // the user input is stored in choice
@@ -220,7 +220,7 @@ int main() {
                 break;
             }
             case '7':
-                cout << "Exiting application.\n";
+                cout << "\nBa Bye, happy learning!\n\nn";
                 break;
             default:
                 cout << "Invalid choice. Please enter a number between 1 and 5.\n";
