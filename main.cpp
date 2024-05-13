@@ -23,17 +23,13 @@ void overwriteMetadata(Note* note) {
     string key;
 
     for (const string& token : tokens) wordFrequency[token]++;
-
-    // if (dynamic_cast<PublicNote*>(note)) 
-    //     key = getFolderName(FolderType::PUBLIC) + "/" + note->getHeading() + ".txt";
     key = getFolderName(FolderType::PRIVATE) + "/" + note->getHeading() + ".txt";
-
     metadata[key] = wordFrequency;
 
     ofstream outFile("metadata.json");
-    outFile << metadata.dump(2); // 4 spaces for indentation
+    outFile << metadata.dump(2);
     outFile.close();
-    inFile.close(); // we should close a file in the end
+    inFile.close();
 }
 
 vector<NoteAndWordsInfo*> loadMetadata() {
@@ -41,26 +37,16 @@ vector<NoteAndWordsInfo*> loadMetadata() {
     json metadata; // object from json's class
     file >> metadata;
 
-    // just parse the metadata file and create a vector of NoteAndWordsInfo objects
     vector<NoteAndWordsInfo*> notes_available;
     for (auto& [key, value] : metadata.items()) {
-        // key filename - public/<name>.txt
-        // value will be {word1: <freq>, ...}
         string heading = key.substr(key.find_last_of("/") + 1); // Extract the heading from the key
         heading = heading.substr(0, heading.find(".txt")); // Remove the file extension
         FolderType type = key.find("public") != string::npos ? FolderType::PUBLIC : FolderType::PRIVATE;  // npos means not found
-
         unordered_map<string, int> wordFrequencies;
-        // {word: int, ...}
-        // {}
-        // {word1: 2}
-        // {word1: 2, word2: 3}
         for (auto& [word, frequency] : value.items()) wordFrequencies[word] = frequency;
-
         NoteAndWordsInfo* noteHeadingAndType = new NoteAndWordsInfo{heading, type, wordFrequencies};
         notes_available.push_back(noteHeadingAndType);
     }
-
 
     vector<FolderType> dirTypes = {FolderType::PUBLIC, FolderType::PRIVATE};
     for (const FolderType& type : dirTypes) {
@@ -68,30 +54,24 @@ vector<NoteAndWordsInfo*> loadMetadata() {
         for (const auto& entry : filesystem::directory_iterator(dir)) {
             string filename = entry.path().filename();
             string heading = filename.substr(0, filename.find(".txt"));
-            string key = getFolderName(type) + "/" + filename;
-            // private/FileName.txt
+            string key = getFolderName(type) + "/" + filename; // private/FileName.txt
+            
             if (!metadata.contains(key)) {
                 cout << "Generating metadata for note: " << heading << endl; 
                 unordered_map<string, int> wordFrequency;
-
                 Note* note = loadNoteFromHeadingInDirectory(dir, heading);
-                for (string& token : tokenize(note->getContent()))
-                    wordFrequency[token]++;
+                for (string& token : tokenize(note->getContent())) wordFrequency[token]++;
                 delete note;
-
                 metadata[key] = wordFrequency;
                 notes_available.push_back(new NoteAndWordsInfo{heading, type, wordFrequency});
             }
         }
     }
-    // saving the metadata
     ofstream outFile("metadata.json");
     outFile << metadata.dump(2);
-    // closing the files
     outFile.close();
     file.close();
     return notes_available;
-
 }
 
 
@@ -122,7 +102,7 @@ int main() {
         cout << "5. Remove notes\n";
         cout << "6. Print note\n";
         cout << "7. Exit\n";
-        cout << "Your choice (1-6): ";
+        cout << "Your choice (1-7): ";
         cin >> choice;
         cout << endl;
 
@@ -152,7 +132,7 @@ int main() {
                 // Showing all public notes first and then private notes
                 cout << ">>>>> Public Notes:\n";
                 cout << endl;
-                for (auto& note : notes_available) {
+                for (NoteAndWordsInfo*& note : notes_available) {
                     if (note->type == FolderType::PUBLIC) {
                         cout << "Heading: " << note->heading << endl;
                         cout << endl;
@@ -162,7 +142,7 @@ int main() {
                 
                 cout << ">>>>> Private Notes:\n";
                 cout << endl;
-                for (auto& note : notes_available) {
+                for (NoteAndWordsInfo*& note : notes_available) {
                     if (note->type == FolderType::PRIVATE) {
                         cout << "Heading: " << note->heading << endl;
                         cout << endl;
@@ -223,6 +203,26 @@ int main() {
                 cin.ignore(); // To consume the newline character left by cin
                 getline(cin, heading);
                 deleteNoteFile(heading, FolderType::PRIVATE);
+                // removing the note from the notes_available vector
+                for (auto it = notes_available.begin(); it != notes_available.end();) {
+                    if ((*it)->heading == heading) {
+                        notes_available.erase(it);
+                        delete *it;
+                        cout << "Note deleted successfully.\n";
+                        break;
+                    }
+                    else it++;
+                }
+
+                // remove the note from the metadata
+                ifstream inFile("metadata.json");
+                json metadata;
+                inFile >> metadata;
+                string key = "private/" + heading + ".txt";
+                metadata.erase(key);
+                ofstream outFile("metadata.json");
+                outFile << metadata.dump(2);
+                outFile.close();
                 break;
             }
             case '6': {
